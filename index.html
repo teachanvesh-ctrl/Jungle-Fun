@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0F4C45">
+<title>Jungle Fun</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F3E8;--ink:#17352F;--card:#fff;--line:#E6DCC0;--brand:#0F4C45;--mango:#FFB627;--leaf:#5DB36B;--prog:#A9DEB1;--tabon:#0F4C45;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E2420;--ink:#F3EBD8;--card:#17352F;--line:#2A4A44;--prog:#2F6B4F;--tabon:#FFB627}}
+:root[data-theme="dark"]{--bg:#0E2420;--ink:#F3EBD8;--card:#17352F;--line:#2A4A44;--prog:#2F6B4F;--tabon:#FFB627}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:700 16px/1.25 'Baloo 2',system-ui,sans-serif;-webkit-user-select:none;user-select:none;touch-action:manipulation;overflow:hidden}
+h2,p{margin:0}
+button{cursor:pointer}
+button:focus-visible{outline:3px solid var(--mango);outline-offset:2px}
+#app{height:100%;display:flex;flex-direction:column;max-width:520px;margin:0 auto}
+.hd{display:flex;align-items:center;gap:8px;height:50px;padding:0 12px;flex:none;background:var(--brand);color:#FFF8EA}
+.app{flex:1;font-size:1.2rem}
+.sc{background:rgba(255,255,255,.16);border-radius:20px;padding:3px 12px}
+.ib{width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:inherit;font-size:1.15rem}
+.main{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;padding:10px 12px;overflow-y:auto}
+.mid{justify-content:center;align-items:center;text-align:center}
+.prog{position:relative;height:22px;background:var(--card);border-radius:11px;overflow:hidden;flex:none;border:1px solid var(--line)}
+.prog i{position:absolute;left:0;top:0;bottom:0;background:var(--prog);transition:width .4s}
+.prog b{position:relative;display:block;text-align:center;font-size:.8rem;line-height:20px}
+.stage{flex:1;min-height:110px;background:var(--card);border-radius:20px;padding:8px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;overflow-y:auto;border:1px solid var(--line)}
+.bigl{font-size:clamp(2.6rem,9vh,4rem);line-height:1.05}
+.pic{font-size:clamp(2.6rem,9vh,4rem);line-height:1.1}
+.pic.xl{font-size:clamp(3.2rem,11vh,4.8rem)}
+.swatch{width:clamp(64px,12vh,90px);height:clamp(64px,12vh,90px);border-radius:50%;box-shadow:0 0 0 3px var(--line)}
+.pics{display:flex;flex-wrap:wrap;justify-content:center;font-size:1.6rem;line-height:1.2}
+.em{border:0;background:none;font-size:1.9rem;min-width:44px;min-height:44px;padding:0}
+.em.sm{font-size:1.5rem;min-width:38px;min-height:38px}
+.em.d{opacity:.3}
+.sp{border:0;background:var(--bg);color:var(--ink);border-radius:20px;padding:4px 14px;min-height:40px;font:inherit}
+.ch{display:grid;gap:10px;flex:none}.c2,.c4{grid-template-columns:1fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}
+.tile{border-radius:18px;font:inherit;font-size:clamp(1.9rem,6.5vh,2.8rem);background:var(--card);color:var(--ink);border:1px solid var(--line);box-shadow:0 3px 0 var(--line);display:flex;align-items:center;justify-content:center;min-height:clamp(84px,15vh,120px);padding:4px}
+.tile.cl{border:2px solid var(--line)}
+.c4 .tile{min-height:clamp(60px,10vh,88px)}
+.tile small{background:rgba(255,255,255,.93);color:#17352F;border-radius:10px;padding:1px 10px;font-size:1rem}
+.tile:active,.big:active,.key:active{transform:translateY(2px)}
+.tile.ok{animation:pop .5s;box-shadow:0 0 0 4px var(--leaf)}
+.tile.ok:not(.cl){background:var(--leaf);color:#fff;border-color:var(--leaf)}
+.x{opacity:.35}.shake{animation:shake .4s}.pulse{animation:pulse .7s infinite}
+.bholu{font-size:4.5rem;line-height:1;animation:bob 2.2s ease-in-out infinite}
+.bholu.still{animation:none}
+.menu{display:flex;flex-direction:column;gap:10px}
+.game{display:flex;align-items:center;gap:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:18px;padding:8px 16px;min-height:64px;font:inherit;font-size:1.3rem;box-shadow:0 3px 0 var(--line);text-align:left}
+.game{border-left:8px solid var(--gc,var(--mango))}
+.acc{margin-left:auto;font-size:.85rem;text-align:right;line-height:1.1}
+.rep{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin-top:4px;font-size:.9rem}
+.game b{font-size:1.8rem;min-width:60px;text-align:center}
+.game:active{transform:translateY(2px)}
+.big{border:0;border-radius:22px;min-height:60px;padding:0 36px;font:inherit;font-size:1.4rem;background:var(--mango);color:#17352F;box-shadow:0 4px 0 #D99410}
+.srow{background:var(--card);border-radius:16px;padding:8px 10px;border:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;font:inherit;min-height:42px;padding:0 14px}
+.chip.on{background:var(--mango);border-color:var(--mango);color:#17352F}
+.note{opacity:.7;font-size:.85rem}
+.warn{background:var(--card);border:2px dashed var(--mango);border-radius:14px;padding:8px 10px;font-size:.85rem}
+.ghost{border:0;background:none;color:var(--ink);opacity:.6;font:inherit;padding:10px;min-height:44px}
+.gq{font-size:2rem;margin:6px 0}
+.gv{display:inline-block;min-width:2.2ch;border-bottom:3px solid var(--mango)}
+.pad{display:grid;grid-template-columns:repeat(3,72px);gap:10px}
+.key{height:60px;border-radius:16px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:1.5rem;box-shadow:0 3px 0 var(--line)}
+.key.go{background:var(--leaf);border-color:var(--leaf);color:#fff}
+@keyframes bob{50%{transform:translateY(-6px)}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes pulse{50%{transform:scale(1.06);box-shadow:0 0 0 5px var(--mango)}}
+@keyframes pop{0%{transform:scale(.7)}70%{transform:scale(1.1)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.pulse{box-shadow:0 0 0 5px var(--mango)}}
+.sel{flex:1;min-width:0;min-height:42px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:.9rem;padding:0 8px}
+.vr{display:flex;gap:6px;margin-top:4px;align-items:center}
+.gh{margin:8px 2px 0;font-size:1rem;opacity:.75}
+/* stickers + voice studio */
+.sg{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.stk{display:flex;align-items:center;justify-content:center;font-size:2rem;min-height:52px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.stk.lk{opacity:.3;font-size:1.3rem}
+.vrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 10px}
+.vrow .lab{font-size:1.7rem;min-width:44px;text-align:center}
+.vrow .nm{flex:1;min-width:80px;font-size:.95rem}
+.vsl{display:flex;align-items:center;gap:4px}
+.vsl small{font-size:.75rem;opacity:.75;max-width:92px;line-height:1.05}
+.chip.rec{background:#E53935;border-color:#E53935;color:#fff}
+.chip.has{border-color:var(--leaf)}
+.chip.sm{min-height:38px;padding:0 10px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ---------- core ---------- */
+var ep=0,$=function(s){return document.querySelector(s)},R=function(h){ep++;$('#app').innerHTML=h};
+var KEYS=['abc','hin','num','col','ani','bir','thg','hom','flw','fod','clo','job','nat'];
+/* dn = solved items per section (saved), sc = accuracy report, cfg = parent settings */
+var S={v:3,stars:0,tab:'abc',sleep:0,sc:{},dn:{},wk:{},ad:{},bd:{},stk:-1,sk:0,day:'',streak:0,cfg:{cs:0,hi:1,ch:0,snd:1,min:10,rate:1,ve:'',vh:'',rec:1}};
+KEYS.forEach(function(k){S.cfg[k]=0});
+var Q=null,AC=null,mode='splash',used=0,TODAY=ymd(new Date()),GT=null,VO=[],LD={};
+try{var d=JSON.parse(localStorage.getItem('jf3'));if(d){S.stars=+d.stars||0;S.tab=d.tab||'abc';S.sleep=d.sleep?1:0;if(d.cfg)Object.assign(S.cfg,d.cfg);
+  ['sc','dn','wk','ad','bd'].forEach(function(x){if(d[x]&&typeof d[x]=='object')S[x]=d[x]});
+  if(typeof d.stk=='number')S.stk=d.stk;if(typeof d.sk=='number')S.sk=d.sk;if(typeof d.day=='string')S.day=d.day;S.streak=+d.streak||0;
+  if(d.ud==TODAY)used=+d.used||0;   /* play time already used today */
+  if(!d.v&&S.cfg.ch==3)S.cfg.ch=0;   /* older versions: 3 was only the default, so move to Auto once */
+}}catch(e){}
+function save(){S.used=used;S.ud=TODAY;try{localStorage.setItem('jf3',JSON.stringify(S))}catch(e){}}
+function rnd(n){return Math.floor(Math.random()*n)}
+/* Fisher–Yates: fair shuffle (sort-with-random is biased) */
+function sh(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=rnd(i+1),t=a[i];a[i]=a[j];a[j]=t}return a}
+function rp(s,n){return Array(n+1).join(s)}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+/* run f after ms, only if the screen hasn't changed since token e */
+function later(f,ms,e){if(e==null)e=ep;setTimeout(function(){if(e==ep&&!S.sleep)f()},ms)}
+var PR=['Great job!','Well done!','Awesome!','Super!','Yes!'],HP=['शाबाश!','वाह!','बहुत बढ़िया!','कमाल!'];
+function pr(k){var a=k=='hin'?HP:PR;return a[rnd(a.length)]}
+function lg(k){return k=='hin'?'hi-IN':'en-IN'}
+/* a few letters that speech engines read wrongly when given alone */
+var SP={'ऋ':'रि','अः':'अह','ज्ञ':'ग्य'};
+
+/* ---------- audio ---------- */
+function ac(){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.resume)AC.resume()}catch(e){}}
+function beep(f,t,w){if(!S.cfg.snd||!AC)return;try{var o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;o.type=w||'sine';g.gain.value=.14;o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+t)}catch(e){}}
+function good(){beep(660,.12);setTimeout(function(){beep(880,.2)},120)}
+function bad(){beep(250,.25,'triangle')}
+
+/* ---------- speech ---------- */
+var spk=0,sq=0,AU=null,RT=[.78,.9,1.0],PF=null,SF=null;   /* PF/SF = finish callbacks of the running play()/speak() */
+function lv(){try{VO=(speechSynthesis.getVoices()||[]).slice()}catch(e){}}
+/* voices load late on many phones, so ask again a few times */
+if(window.speechSynthesis){lv();try{speechSynthesis.addEventListener('voiceschanged',lv)}catch(e){speechSynthesis.onvoiceschanged=lv}setTimeout(lv,400);setTimeout(lv,1500);setTimeout(lv,4000)}
+function vl(v){return (v.lang||'').replace('_','-')}
+/* rank voices: natural/neural/Google ones first, robotic (eSpeak etc.) last */
+function vs(v,l){var n=(v.name||'').toLowerCase(),s=0;if(vl(v).toLowerCase()==l.toLowerCase())s+=4;if(/neural|natural|premium|enhanced|online|wavenet/.test(n))s+=6;if(/google/.test(n))s+=4;if(/espeak|festival|compact|robot/.test(n))s-=12;if(v.localService)s+=1;return s}
+function vf(l){
+  var p=l.slice(0,2),pref=S.cfg[p=='hi'?'vh':'ve'],c=[],i;
+  for(i=0;i<VO.length;i++)if(vl(VO[i]).slice(0,2)==p)c.push(VO[i]);
+  if(!c.length)return null;
+  if(pref)for(i=0;i<c.length;i++)if(c[i].name==pref)return c[i];
+  c.sort(function(a,b){return vs(b,l)-vs(a,l)});return c[0];
+}
+function hasHi(){for(var i=0;i<VO.length;i++)if(vl(VO[i]).slice(0,2)=='hi')return true;return false}
+function hush(){spk++;sq++;stopClip();try{if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}endPlay()}
+/* when sound is stopped, finish at once instead of waiting for the safety timeout (callers check the screen token) */
+function endPlay(){var p=PF,q=SF;PF=SF=null;if(p)p();if(q)q()}
+/* parts=[[lang,text],...]; done() fires when the last part ends (with a safety timeout) */
+function speak(parts,done){
+  parts=parts.filter(function(p){return p&&p[1]});
+  if(VO.length&&!hasHi())parts=parts.filter(function(p){return p[0].slice(0,2)!='hi'});
+  var fin=0,ft,n=0,id=++spk;
+  function f(){if(fin)return;fin=1;clearTimeout(ft);if(SF===f)SF=null;if(done)done()}
+  if(!S.cfg.snd||!window.speechSynthesis||!parts.length){try{if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}if(done)setTimeout(done,0);return}
+  parts.forEach(function(p){n+=p[1].length});
+  ft=setTimeout(f,Math.min(9000,2200+n*170));if(done)SF=f;
+  try{speechSynthesis.cancel()}catch(e){}
+  /* tiny gap after cancel(): speaking at once after cancel() is dropped by some Android browsers */
+  setTimeout(function(){
+    if(id!=spk)return;
+    try{parts.forEach(function(p,i){var u=new SpeechSynthesisUtterance(p[1]),v=vf(p[0]);u.lang=v?vl(v):p[0];if(v)u.voice=v;u.rate=RT[S.cfg.rate]||.9;u.pitch=1;u.volume=1;if(i==parts.length-1){u.onend=u.onerror=function(){if(id==spk)f()}}speechSynthesis.speak(u)})}catch(e){f()}
+  },70);
+}
+function say(l){var p=[];for(var i=1;i<arguments.length;i++)p.push([l,arguments[i]]);speak(p)}
+
+/* ---------- optional recorded voice: clips live on this phone (IndexedDB); anything not recorded uses the default voice ---------- */
+var DBP=null,RK={},RC=null,RB=0,VM='';
+/* Chrome gives the microphone only to https pages (or localhost). A file opened from WhatsApp / Files / Downloads is not one. */
+function secureOk(){return window.isSecureContext!==false}
+var NOSEC='The microphone does not work when this game is opened as a file on the phone (from WhatsApp, Files or Downloads), even if Chrome has microphone permission. Open the game from its https:// web link instead.';
+/* turn the browser's error into a reason a parent can act on */
+function micWhy(e){var n=(e&&e.name)||'';
+  if(!secureOk())return NOSEC;
+  if(n=='NotAllowedError'||n=='SecurityError'||n=='PermissionDeniedError')return 'The microphone is blocked for this page. In Chrome tap the icon left of the address (🔒 or ⓘ) → Permissions → Microphone → Allow, then reload. Also check phone Settings → Apps → Chrome → Permissions → Microphone → Allow.';
+  if(n=='NotFoundError'||n=='DevicesNotFoundError')return 'No microphone was found on this device.';
+  if(n=='NotReadableError'||n=='TrackStartError'||n=='AbortError')return 'The microphone is busy in another app (a call, a voice recorder, or another tab). Close it and try again.';
+  return 'The microphone could not start'+(n?' ('+n+')':'')+'. Reload the page and try again.';
+}
+var MP='';   /* microphone permission state from the browser, if it tells us */
+function micState(){try{if(navigator.permissions&&navigator.permissions.query)navigator.permissions.query({name:'microphone'}).then(function(r){var u=function(){var o=MP;MP=r.state;if(o!=MP)refreshVoice()};u();r.onchange=u},function(){})}catch(e){}}
+function canRec(){return !!(window.indexedDB&&window.MediaRecorder&&navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)}
+function rdb(){if(!DBP)DBP=new Promise(function(res,rej){try{var q=indexedDB.open('jf_voice',1);q.onupgradeneeded=function(){q.result.createObjectStore('c')};q.onsuccess=function(){res(q.result)};q.onerror=function(){rej(q.error)}}catch(e){rej(e)}});return DBP}
+function rtx(m,fn){return rdb().then(function(db){return new Promise(function(res,rej){var t=db.transaction('c',m),q=fn(t.objectStore('c'));t.oncomplete=function(){res(q&&q.result)};t.onerror=t.onabort=function(){rej(t.error)}})})}
+function rget(key){return rtx('readonly',function(o){return o.get(key)})}
+function rput(key,b){return rtx('readwrite',function(o){return o.put(b,key)}).then(function(){RK[key]=1})}
+function rdel(key){return rtx('readwrite',function(o){return o.delete(key)}).then(function(){delete RK[key]})}
+function rkeys(){return rtx('readonly',function(o){return o.getAllKeys()}).then(function(a){RK={};(a||[]).forEach(function(x){RK[x]=1})})}
+if(window.indexedDB){rkeys().catch(function(){});try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}}
+/* one recording id per picture+word, shared by every section that has it; ABC letters shared by A / a / A→a */
+function rk(k,it,slot){return k=='abc'?'abc|'+slot+'|'+it.word:k=='hin'?'hin|'+slot+'|'+it.big:k=='num'?'num|'+slot+'|'+it.big:k=='col'?'col|'+slot+'|'+it.word:'w|'+slot+'|'+it.em+it.word}
+function hasRec(key){return !!(S.cfg.rec&&RK[key])}
+function stopClip(){if(AU){try{AU.pause()}catch(e){}AU=null}}
+/* done() after the clip ends; bad() if it cannot be played (missing, blocked, broken) */
+function clip(key,id,done,bad){
+  var fin=0,ft;
+  function f(){if(fin)return;fin=1;clearTimeout(ft);if(id==sq)done()}
+  function nope(){if(fin)return;fin=1;clearTimeout(ft);if(id==sq)(bad||done)()}
+  ft=setTimeout(f,7000);
+  rget(key).then(function(b){
+    if(id!=sq||fin)return;
+    if(!b){delete RK[key];nope();return}
+    var u=URL.createObjectURL(b),a=new Audio(u);AU=a;
+    var end=function(){try{URL.revokeObjectURL(u)}catch(e){}f()};
+    a.onended=end;a.onerror=function(){try{URL.revokeObjectURL(u)}catch(e){}nope()};
+    var r=a.play();if(r&&r.catch)r.catch(function(){nope()});
+  }).catch(nope);
+}
+/* play a list: ['c',key,lang,fallbackText] = my recording (default voice if it can't play), ['t',lang,text] = default voice */
+function play(segs,done){
+  var p0=PF;PF=null;if(p0)p0();
+  var id=++sq,i=0,fin=0,ft;spk++;stopClip();try{if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}
+  segs=segs.filter(Boolean);
+  function f(){if(fin)return;fin=1;clearTimeout(ft);if(PF===f)PF=null;if(done)done()}
+  if(!S.cfg.snd||!segs.length){setTimeout(f,0);return}
+  ft=setTimeout(f,14000);if(done)PF=f;
+  function step(){
+    if(id!=sq)return;
+    if(i>=segs.length){f();return}
+    var g=segs[i++];
+    if(g[0]=='c')clip(g[1],id,step,function(){if(g[3])speak([[g[2],g[3]]],function(){if(id==sq)step()});else step()});
+    else{var ps=[[g[1],g[2]]];while(i<segs.length&&segs[i][0]=='t'){ps.push([segs[i][1],segs[i][2]]);i++}speak(ps,function(){if(id==sq)step()})}
+  }
+  step();
+}
+/* what the child hears when asked: my recording if there is one, else the default voice */
+function nm(k,it){
+  var key=rk(k,it,'n');
+  if(hasRec(key)&&k!='num'&&!(k=='abc'&&S.cfg.cs==2))return [['c',key,lg(k),it.ask]];
+  return [['t',lg(k),it.ask]];
+}
+function nmw(k,it){var a=nm(k,it);return (a[0][0]=='c'||k=='hin')?a:[['t',lg(k),'Try again'],a[0]]}
+/* praise: recorded name/phrase if there is one (then no robot "Great job"), otherwise default voice as before */
+function yayPlan(k,it){
+  var kn=rk(k,it,'n'),kp=rk(k,it,'p'),kh=rk(k,it,'h'),segs=[],ph;
+  if((k=='abc'||k=='hin')&&hasRec(kp))ph=['c',kp,lg(k),it.say];
+  else if(hasRec(kn))ph=['c',kn,lg(k),it.say];
+  else ph=['t',lg(k),it.say];
+  if(ph[0]=='t')segs.push(['t',lg(k),pr(k)]);
+  segs.push(ph);
+  if(S.cfg.hi&&it.hi)segs.push(hasRec(kh)?['c',kh,'hi-IN',it.hi]:['t','hi-IN',it.hi]);
+  return segs;
+}
+
+/* ---------- data ---------- */
+var D={};
+D.abc='A|Apple|🍎,B|Ball|⚽,C|Cat|🐱,D|Dog|🐶,E|Elephant|🐘,F|Fish|🐟,G|Grapes|🍇,H|Hat|🎩,I|Ice cream|🍦,J|Juice|🧃,K|Kite|🪁,L|Lion|🦁,M|Monkey|🐵,N|Nose|👃,O|Orange|🍊,P|Parrot|🦜,Q|Queen|👑,R|Rabbit|🐰,S|Sun|☀️,T|Tiger|🐯,U|Umbrella|☂️,V|Van|🚐,W|Watch|⌚,X|X-mas tree|🎄,Y|Yo-yo|🪀,Z|Zebra|🦓'.split(',').map(function(s){s=s.split('|');return{big:s[0],word:s[1],pic:s[2],say:s[0]+' for '+s[1],ask:'Find the letter '+s[0]}});
+D.abc0=D.abc;
+D.abc1=D.abc0.map(function(x){return Object.assign({},x,{big:x.big.toLowerCase(),ask:'Find the small letter '+x.big})});
+D.abc2=D.abc0.map(function(x){return Object.assign({},x,{big:x.big+x.big.toLowerCase(),tb:x.big.toLowerCase(),q:x.big,ask:'Find the small letter for '+x.big})});
+D.hin='अ|अनानास|🍍,आ|आम|🥭,इ|इंजन|🚂,ई|ईंट|🧱,उ|उल्लू|🦉,ऊ|ऊँट|🐪,ऋ|ऋषि|🧘,ए|एक|1️⃣,ऐ|ऐनक|👓,ओ|ओस|💧,औ|औज़ार|🔧,अं|अंगूर|🍇,अः||,क|कबूतर|🕊️,ख|खरगोश|🐰,ग|गाय|🐄,घ|घर|🏠,ङ||,च|चम्मच|🥄,छ|छतरी|☂️,ज|जहाज़|🚢,झ|झंडा|🚩,ञ||,ट|टमाटर|🍅,ठ|ठंड|❄️,ड|डिब्बा|📦,ढ|ढोल|🥁,ण||,त|तरबूज़|🍉,थ|थाली|🍽️,द|दरवाज़ा|🚪,ध|धनुष|🏹,न|नल|🚰,प|पतंग|🪁,फ|फूल|🌸,ब|बतख|🦆,भ|भालू|🐻,म|मछली|🐟,य|यान|🚀,र|रेल|🚆,ल|लड़की|👧,व|वायुयान|✈️,श|शेर|🦁,ष||,स|सेब|🍎,ह|हाथी|🐘,क्ष|क्षमा|🙏,त्र|त्रिशूल|🔱,ज्ञ|ज्ञान|📚'.split(',').map(function(s){s=s.split('|');return{big:s[0],word:s[1],pic:s[2],sp:SP[s[0]]||s[0],say:s[1]?(SP[s[0]]||s[0])+' से '+s[1]:(SP[s[0]]||s[0]),ask:SP[s[0]]||s[0]}});
+D.num=[];var TH=['🍎','⭐','🐥','🎈'];
+for(var i=1;i<=20;i++)D.num.push({big:''+i,th:TH[Math.floor((i-1)/5)],cnt:i,say:''+i,ask:'Count them. How many?'});
+D.col=[['#E53935','Red','🍎','लाल'],['#FDD835','Yellow','🍌','पीला'],['#1E88E5','Blue','🐳','नीला'],['#43A047','Green','🐸','हरा'],['#FB8C00','Orange','🥕','नारंगी'],['#F06292','Pink','🐷','गुलाबी'],['#8E24AA','Purple','🍇','बैंगनी'],['#212121','Black','🕶️','काला'],['#795548','Brown','🍫','भूरा'],['#FFFFFF','White','☁️','सफ़ेद'],['#9E9E9E','Grey','🐘','स्लेटी'],['#4FC3F7','Sky Blue','🦋','आसमानी'],['#D4AF37','Golden','🏆','सुनहरा'],['#C0C0C0','Silver','🥈','चाँदी']].map(function(c){return{big:'',col:c[0],word:c[1],pic:c[2],hi:c[3],say:c[1],ask:'Find '+c[1]}});
+function W(s){return s.split(',').map(function(r){r=r.split('|');return{big:'',tb:r[0],pic:'',em:r[0],word:r[1],hi:r[2],say:r[1],ask:'Find the '+r[1]}})}
+D.ani=W('🐶|Dog|कुत्ता,🐱|Cat|बिल्ली,🐄|Cow|गाय,🐐|Goat|बकरी,🐑|Sheep|भेड़,🐴|Horse|घोड़ा,🐷|Pig|सुअर,🐔|Hen|मुर्गी,🐰|Rabbit|खरगोश,🐫|Camel|ऊँट,🦁|Lion|शेर,🐯|Tiger|बाघ,🐘|Elephant|हाथी,🐒|Monkey|बंदर,🦒|Giraffe|जिराफ़,🦓|Zebra|ज़ेबरा,🐻|Bear|भालू,🦌|Deer|हिरण,🐺|Wolf|भेड़िया,🦏|Rhino|गैंडा,🐊|Crocodile|मगरमच्छ,🦜|Parrot|तोता,🦆|Duck|बतख,🦉|Owl|उल्लू,🕊️|Pigeon|कबूतर,🦚|Peacock|मोर,🐟|Fish|मछली,🐢|Turtle|कछुआ,🐸|Frog|मेंढक,🐍|Snake|साँप,🦋|Butterfly|तितली,🐝|Bee|मधुमक्खी,🐜|Ant|चींटी');
+D.thg=W('🍎|Apple|सेब,🍌|Banana|केला,🥭|Mango|आम,🍇|Grapes|अंगूर,🍊|Orange|संतरा,🍉|Watermelon|तरबूज़,🍓|Strawberry|स्ट्रॉबेरी,🥕|Carrot|गाजर,🍅|Tomato|टमाटर,🥔|Potato|आलू,🌽|Corn|भुट्टा,🍋|Lemon|नींबू,👀|Eyes|आँखें,👂|Ear|कान,👃|Nose|नाक,👄|Mouth|मुँह,🦷|Tooth|दाँत,👅|Tongue|जीभ,✋|Hand|हाथ,🦶|Foot|पैर,🚗|Car|कार,🚌|Bus|बस,🚲|Cycle|साइकिल,🚂|Train|रेल,✈️|Aeroplane|हवाई जहाज़,🚢|Ship|जहाज़,🚁|Helicopter|हेलिकॉप्टर,🛺|Auto|ऑटो,⚽|Ball|गेंद,🪁|Kite|पतंग,☂️|Umbrella|छतरी,📚|Book|किताब,✏️|Pencil|पेंसिल,🎒|Bag|बस्ता,🪑|Chair|कुर्सी,🛏️|Bed|बिस्तर,🔑|Key|चाबी,⏰|Clock|घड़ी,🥄|Spoon|चम्मच,🍽️|Plate|थाली,🚪|Door|दरवाज़ा,🏠|House|घर,💡|Bulb|बल्ब,🧸|Teddy|टेडी');
+var SETS={abc:[['A–Z',0,26],['A–J',0,10],['K–T',10,20],['U–Z',20,26]],hin:[['सभी 49',0,49],['स्वर',0,13],['क–ञ',13,23],['ट–न',23,33],['प–ज्ञ',33,49]],num:[['1–20',0,20],['1–10',0,10],['11–20',10,20]],col:[['All 14',0,14],['Basic 8',0,8],['First 4',0,4],['More 6',8,14]],ani:[['All 33',0,33],['Farm & pets',0,10],['Wild',10,21],['Birds, water, bugs',21,33]],thg:[['All 44',0,44],['Fruits & veg',0,12],['Body',12,20],['Vehicles',20,28],['Objects',28,44]]};
+/* ---------- new sections: groups of 'emoji|English|Hindi' ---------- */
+function mk(g){var all=[],rg=[];g.forEach(function(x){var a=W(x[1]);rg.push([x[0]+' ('+a.length+')',all.length,all.length+a.length]);all=all.concat(a)});rg.unshift(['All '+all.length,0,all.length]);return{d:all,r:rg}}
+var NEW={
+bir:[['Birds','🐦|Sparrow|चिड़िया,🦜|Parrot|तोता,🦚|Peacock|मोर,🦆|Duck|बतख,🦉|Owl|उल्लू,🕊️|Pigeon|कबूतर,🐔|Hen|मुर्गी,🐓|Rooster|मुर्गा,🦅|Eagle|बाज़,🦢|Swan|हंस,🦩|Flamingo|फ्लेमिंगो,🐧|Penguin|पेंगुइन,🦃|Turkey|टर्की,🐤|Chick|चूज़ा'],
+ ['Bugs & small animals','🐝|Bee|मधुमक्खी,🦋|Butterfly|तितली,🐞|Ladybug|लेडीबग,🐜|Ant|चींटी,🦗|Cricket|झींगुर,🕷️|Spider|मकड़ी,🐛|Caterpillar|इल्ली,🐌|Snail|घोंघा,🦂|Scorpion|बिच्छू,🦟|Mosquito|मच्छर,🦐|Prawn|झींगा,🐙|Octopus|ऑक्टोपस,🦇|Bat|चमगादड़,🦀|Crab|केकड़ा,🦎|Lizard|छिपकली']],
+hom:[['Kitchen','🥄|Spoon|चम्मच,🍴|Fork|काँटा,🍽️|Plate|थाली,🥛|Glass|गिलास,☕|Cup|कप,🍳|Pan|कड़ाही,🍼|Baby bottle|दूध की बोतल,🧺|Basket|टोकरी,🚰|Tap|नल,🧂|Salt|नमक'],
+ ['Rooms','🪑|Chair|कुर्सी,🛏️|Bed|बिस्तर,🛋️|Sofa|सोफ़ा,🚪|Door|दरवाज़ा,🖼️|Picture|तस्वीर,💡|Bulb|बल्ब,🔑|Key|चाबी,⏰|Clock|घड़ी,🗑️|Dustbin|कूड़ेदान,📦|Box|डिब्बा'],
+ ['Bath & clean','🧹|Broom|झाड़ू,🚿|Shower|शावर,🛁|Bathtub|टब,🧼|Soap|साबुन,🧴|Shampoo|शैम्पू,🧻|Tissue roll|टिशू रोल'],
+ ['Gadgets','📺|TV|टीवी,☎️|Telephone|फ़ोन,📱|Mobile|मोबाइल,💻|Laptop|लैपटॉप,📻|Radio|रेडियो,🔦|Torch|टॉर्च,🕯️|Candle|मोमबत्ती,🔌|Plug|प्लग'],
+ ['Tools & bags','🔨|Hammer|हथौड़ा,✂️|Scissors|कैंची,🧵|Thread|धागा,📌|Pin|पिन,🧳|Suitcase|सूटकेस,☂️|Umbrella|छतरी']],
+flw:[['Flowers','🌹|Rose|गुलाब,🌻|Sunflower|सूरजमुखी,🌷|Tulip|ट्यूलिप,🌺|Hibiscus|गुड़हल,🌼|Daisy|डेज़ी,🌸|Blossom|चेरी का फूल,💐|Bouquet|गुलदस्ता,🥀|Dry flower|मुरझाया फूल'],
+ ['Plants & trees','🌱|Seedling|पौधा,🌿|Grass|घास,🍀|Clover|तिपतिया,🍃|Leaf|पत्ता,🍂|Dry leaves|सूखे पत्ते,🍁|Maple leaf|मेपल का पत्ता,🌳|Tree|पेड़,🌲|Pine tree|चीड़ का पेड़,🌴|Palm tree|ताड़ का पेड़,🌵|Cactus|कैक्टस,🌾|Paddy|धान,🎍|Bamboo|बाँस,🍄|Mushroom|मशरूम'],
+ ['Plant things','🥥|Coconut|नारियल,🥜|Peanut|मूँगफली,🌽|Corn|भुट्टा,🥦|Broccoli|ब्रोकली,🌶️|Chilli|मिर्च,🍆|Brinjal|बैंगन,🥒|Cucumber|खीरा,🍠|Sweet potato|शकरकंद,🧅|Onion|प्याज़']],
+fod:[['Sweets & snacks','🍰|Cake|केक,🧁|Cupcake|कपकेक,🍪|Biscuit|बिस्कुट,🍫|Chocolate|चॉकलेट,🍬|Candy|टॉफ़ी,🍭|Lollipop|लॉलीपॉप,🍦|Ice cream|आइसक्रीम,🍩|Doughnut|डोनट,🍮|Pudding|पुडिंग,🍯|Honey|शहद,🍿|Popcorn|पॉपकॉर्न,🥧|Pie|पाई'],
+ ['Meals','🍚|Rice|चावल,🍛|Curry|करी,🍲|Soup|सूप,🍜|Noodles|नूडल्स,🍝|Pasta|पास्ता,🍕|Pizza|पिज़्ज़ा,🍔|Burger|बर्गर,🍟|Fries|फ्राइज़,🌭|Hot dog|हॉट डॉग,🥪|Sandwich|सैंडविच,🌮|Taco|टैको,🥟|Momo|मोमो,🍞|Bread|ब्रेड,🥞|Pancake|पैनकेक'],
+ ['Drinks & more','🥛|Milk|दूध,🧃|Juice|जूस,🍵|Tea|चाय,🥤|Cold drink|कोल्ड ड्रिंक,🧀|Cheese|चीज़,🧈|Butter|मक्खन,🥚|Egg|अंडा,🥣|Bowl|कटोरी,🧂|Salt|नमक,🧊|Ice|बर्फ़']],
+clo:[['Clothes','👕|T-shirt|टी-शर्ट,👖|Jeans|जींस,👗|Dress|फ्रॉक,👔|Shirt|कमीज़,🧥|Coat|कोट,🥻|Saree|साड़ी,🩳|Shorts|निक्कर,🧦|Socks|मोज़े,🧤|Gloves|दस्ताने,🧣|Scarf|मफ़लर,🎽|Vest|बनियान'],
+ ['Shoes','👟|Sports shoes|जूते,👞|Leather shoe|चमड़े का जूता,👡|Sandal|सैंडल,👢|Boot|बूट,🥿|Flat shoes|बैली जूते,👠|High heel|हील वाली सैंडल'],
+ ['Wear & carry','🧢|Cap|टोपी,🎩|Hat|हैट,🩱|Swimsuit|तैराकी की पोशाक,👓|Glasses|चश्मा,🥼|Lab coat|लैब कोट,👜|Handbag|हैंडबैग,⛑️|Helmet|हेलमेट,🎒|School bag|बस्ता,⌚|Watch|कलाई घड़ी,💍|Ring|अँगूठी,📿|Beads|माला,👑|Crown|मुकुट,🎀|Ribbon|रिबन']],
+job:[['Jobs','👨‍⚕️|Doctor|डॉक्टर,👩‍🏫|Teacher|टीचर,👮|Police|पुलिस,👨‍🚒|Firefighter|दमकलकर्मी,👨‍🌾|Farmer|किसान,👨‍🍳|Cook|रसोइया,👷|Worker|मज़दूर,👨‍✈️|Pilot|पायलट,👨‍🚀|Astronaut|अंतरिक्ष यात्री,💂|Guard|पहरेदार,👨‍🔧|Mechanic|मिस्त्री,👨‍🎨|Artist|चित्रकार,👨‍🔬|Scientist|वैज्ञानिक,👨‍⚖️|Judge|जज,👨‍🎤|Singer|गायक'],
+ ['People','👶|Baby|बच्चा,👦|Boy|लड़का,👧|Girl|लड़की,👨|Man|आदमी,👩|Woman|महिला,👴|Grandfather|दादा जी,👵|Grandmother|दादी जी,👪|Family|परिवार,🤴|Prince|राजकुमार,👸|Princess|राजकुमारी,🤡|Clown|जोकर,💃|Dancer|नर्तकी,🦸|Superhero|सुपरहीरो,🎅|Santa|सांता,👼|Angel|फ़रिश्ता']],
+nat:[['Sky & space','☀️|Sun|सूरज,🌙|Moon|चाँद,⭐|Star|तारा,☁️|Cloud|बादल,🌈|Rainbow|इंद्रधनुष,🌍|Earth|धरती,🪐|Saturn|शनि,☄️|Comet|धूमकेतु,🌌|Milky Way|आकाशगंगा,🔭|Telescope|दूरबीन,🌃|Night|रात,🚀|Rocket|रॉकेट'],
+ ['Weather','🌧️|Rain|बारिश,🌂|Closed umbrella|बंद छतरी,❄️|Snow|बर्फ़,⛄|Snowman|स्नोमैन,🌪️|Tornado|बवंडर,💨|Wind|हवा,🌫️|Fog|कोहरा,⚡|Lightning|बिजली,🌡️|Thermometer|थर्मामीटर'],
+ ['Land & water','🌊|Wave|लहर,💧|Water drop|पानी की बूँद,🔥|Fire|आग,⛰️|Mountain|पहाड़,🏞️|River|नदी,🌋|Volcano|ज्वालामुखी,🏖️|Beach|समुद्र तट,🏝️|Island|द्वीप,🏜️|Desert|रेगिस्तान,🏕️|Tent|तंबू']]
+};
+Object.keys(NEW).forEach(function(k){var m=mk(NEW[k]);D[k]=m.d;SETS[k]=m.r});
+
+/* ---------- ranges, menu, settings tables ---------- */
+var TABS=[['abc','ABC','English'],['hin','अ आ','Hindi'],['num','123','Numbers'],['col','🎨','Colors'],['ani','🐾','Animals'],['bir','🐦','Birds & Bugs'],['thg','🧸','Things'],['hom','🏠','Home Things'],['flw','🌸','Flowers & Plants'],['fod','🍕','Food & Sweets'],['clo','👕','Clothes'],['job','👩‍🏫','Jobs & People'],['nat','🌈','Nature & Sky'],['set','⚙️','Settings']];
+var GRP=[['🔤 Letters & numbers',['abc','hin','num','col']],['🐾 Words & pictures',['ani','bir','thg','hom','flw']],['📚 Vocabulary',['fod','clo','job','nat']]];
+var GC={abc:'#E53935',hin:'#FB8C00',num:'#1E88E5',col:'#8E24AA',ani:'#43A047',bir:'#00ACC1',thg:'#F06292',hom:'#8D6E63',flw:'#EC407A',fod:'#FF7043',clo:'#5C6BC0',job:'#26A69A',nat:'#42A5F5'};
+var ROWS=[['English ABC','abc'],['Hindi अ आ','hin'],['Numbers','num'],['Colors','col'],['Animals','ani'],['Birds & Bugs','bir'],['Things & words','thg'],['Home things','hom'],['Flowers & Plants','flw'],['Food & Sweets','fod'],['Clothes & Shoes','clo'],['Jobs & People','job'],['Nature & Sky','nat']].map(function(r){return[r[0],r[1],SETS[r[1]].map(function(s,i){return[s[0],i]})]}).concat([['Letter case (English ABC)','cs',[['A B C',0],['a b c',1],['A → a match',2]]],['Hindi names (everything except letters)','hi',[['On',1],['Off',0]]],['Choices (Auto grows with accuracy)','ch',[['Auto',0],[2,2],[3,3],[4,4]]],['Sound','snd',[['On',1],['Off',0]]],['Voice speed','rate',[['Slow',0],['Normal',1],['Fast',2]]],['Play time limit','min',[['Off',0],['10 min',10],['15 min',15],['20 min',20]]]]);
+
+/* clean up old / bad saved settings so nothing crashes */
+KEYS.forEach(function(k){var v=S.cfg[k];if(!(v>=0&&v<SETS[k].length))S.cfg[k]=0});
+if([0,1,2].indexOf(S.cfg.cs)<0)S.cfg.cs=0;
+if([0,2,3,4].indexOf(S.cfg.ch)<0)S.cfg.ch=0;
+if(S.cfg.rec!==0&&S.cfg.rec!==1)S.cfg.rec=1;
+if([0,10,15,20].indexOf(S.cfg.min)<0)S.cfg.min=10;
+if([0,1,2].indexOf(S.cfg.rate)<0)S.cfg.rate=1;
+if(typeof S.cfg.ve!='string')S.cfg.ve='';if(typeof S.cfg.vh!='string')S.cfg.vh='';
+if(!SETS[S.tab])S.tab='abc';
+Object.keys(S.ad).forEach(function(k){var a=S.ad[k];if(!a||!(a.l>=2&&a.l<=4))S.ad[k]={l:2,s:0,m:0}});
+/* sticker collection: a new one every 10 correct answers */
+var STK='🦁 🐯 🐘 🦒 🦓 🐼 🐨 🦊 🐸 🐙 🦋 🐢 🐬 🦄 🐳 🦜 🦉 🐧 🦩 🐞 🌈 🚀 🛸 🎈 🎨 🏆 🎁 🪁 ⛵ 🚂 🚒 🏎️ 🛩️ 🍦 🍓 🍉 🍩 🧁 🌻 🌴 🌋 🏰 🎡 🎠 🎪 🎸 🥁 🎺 🔔 💎 👑 🧸 🪀 ⚽ 🏀 🎯 🧩 🎩 🌟 🦖'.split(' ');
+if(S.stk<0){S.stk=Math.min(Math.floor(S.stars/10),STK.length);S.sk=S.stars%10}   /* stars earned before stickers existed */
+if(S.stk>STK.length)S.stk=STK.length;if(!(S.sk>=0&&S.sk<10))S.sk=0;
+
+/* ---------- progress (saved): every item solved stays solved until the round is finished ---------- */
+function iid(it){return (it.big||'')+'|'+(it.word||'')+'|'+(it.em||'')}
+function items(k){var s=SETS[k][S.cfg[k]],d=k=='abc'?D['abc'+S.cfg.cs]:D[k];return d.slice(s[1],s[2])}
+function pool(k){var d=S.dn[k]||{};return items(k).filter(function(x){return !d[iid(x)]})}
+function prog(k){var l=items(k);return [l.length-pool(k).length,l.length]}
+function resetRange(k){var d=S.dn[k]||(S.dn[k]={});items(k).forEach(function(x){delete d[iid(x)]});save()}
+/* weak items: level 1-3 per item, saved. Wrong on first try = +1, right on first try = -1 */
+function wl(k,it){return ((S.wk[k]||{})[iid(it)])||0}
+function wset(k,it,fst){var m=S.wk[k]||(S.wk[k]={}),id=iid(it),v=(m[id]||0)+(fst?-1:1);if(v>3)v=3;if(v>0)m[id]=v;else delete m[id]}
+/* auto difficulty: 2 choices to start; 5 right in a row -> more choices; 2 misses -> fewer */
+function adj(k,fst){var a=S.ad[k]||(S.ad[k]={l:2,s:0,m:0});if(fst){a.s++;if(a.s>=3)a.m=0;if(a.s>=5&&a.l<4){a.l++;a.s=0}}else{a.s=0;a.m++;if(a.m>=2&&a.l>2){a.l--;a.m=0}}}
+function nch(k){return S.cfg.ch||(S.ad[k]&&S.ad[k].l)||2}
+/* next item: (1) one answered wrongly ~4 questions ago comes back, (2) otherwise random from the unsolved,
+   weak items more likely; never the same item twice in a row */
+function draw(k){
+  var q=(Q&&Q.rq)||[],i;
+  for(i=0;i<q.length;i++)if(Q.n>=q[i].due&&q[i].it!==LD[k]){Q.re=q[i];LD[k]=q[i].it;return q[i].it}
+  var p=pool(k);if(!p.length)return null;
+  var c=p.length>1?p.filter(function(x){return x!==LD[k]}):p,tot=0,ws=c.map(function(x){var w=1+2*wl(k,x);tot+=w;return w}),r=Math.random()*tot,j=0;
+  while(j<c.length-1&&r>=ws[j]){r-=ws[j];j++}
+  LD[k]=c[j];return c[j];
+}
+/* daily streak */
+function ymd(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function touchDay(){var t=new Date(),a=ymd(t);if(S.day==a)return;var y=new Date(t.getFullYear(),t.getMonth(),t.getDate()-1);S.streak=(S.day==ymd(y))?S.streak+1:1;S.day=a}
+function curStreak(){var t=new Date(),y=new Date(t.getFullYear(),t.getMonth(),t.getDate()-1);return (S.day==ymd(t)||S.day==ymd(y))?S.streak:0}
+
+/* ---------- screens ---------- */
+function frame(tab,inner){R('<div class="hd">'+(tab=='home'?'':'<button class="ib" onclick="home()" aria-label="Home">🏠</button>')+'<span class="app">🐻 Jungle Fun</span><span class="sc">⭐ '+S.stars+'</span><button class="ib" id="mu" onclick="snd()" aria-label="Sound on or off">'+(S.cfg.snd?'🔊':'🔇')+'</button></div><div class="main">'+inner+'</div>')}
+function acc(k){var p=prog(k),r=S.sc[k],s='';if(p[0])s+='✅ '+p[0]+'/'+p[1];if(r&&r.t){var q=Math.round(r.f/r.t*100);s+=(s?'<br>':'')+(q>=80?'⭐⭐⭐':q>=50?'⭐⭐':'⭐')+' '+q+'%'}return s}
+function home(){mode='home';hush();recStop();Q=null;CF='';
+  var g=GRP.map(function(x){return '<p class="gh">'+x[0]+'</p><div class="menu">'+x[1].map(function(k){var t=TABS.filter(function(z){return z[0]==k})[0];return '<button class="game" style="--gc:'+GC[k]+'" onclick="go(\''+k+'\')"><b>'+t[1]+'</b>'+t[2]+'<span class="acc">'+acc(k)+'</span></button>'}).join('')+'</div>'}).join('');
+  var st=curStreak();
+  frame('home','<h2 style="text-align:center">What do you want to play?</h2>'+(st?'<p class="note" style="text-align:center">🔥 '+st+' day'+(st>1?'s':'')+' in a row!</p>':'')+'<button class="game" style="--gc:#FFB627" onclick="album()"><b>🏆</b>My stickers<span class="acc">'+S.stk+' / '+STK.length+'</span></button>'+g+'<button class="ghost" onclick="openSet()">⚙️ Parent settings</button>')}
+function snd(){S.cfg.snd=S.cfg.snd?0:1;save();if(!S.cfg.snd)hush();var m=$('#mu');if(m)m.textContent=S.cfg.snd?'🔊':'🔇'}
+function hiLine(it){return S.cfg.hi&&it.hi?'<div class="note">'+it.hi+'</div>':''}
+function stage(k,it){
+  if(it.em)return '<div class="pic xl">'+it.em+'</div><div>'+it.word+'</div>'+hiLine(it);
+  if(k=='num')return '<div class="bigl">'+it.big+'</div><div class="pics">'+rp('<span>'+it.th+'</span>',it.cnt)+'</div>';
+  if(k=='col')return '<div class="swatch" style="background:'+it.col+'"></div><div>'+it.word+'</div>'+hiLine(it)+'<div class="pic">'+it.pic+'</div>';
+  return '<div class="bigl">'+it.big+'</div>'+(it.pic?'<div class="pic">'+it.pic+'</div>':'')+(it.word?'<div>'+it.word+'</div>':'');
+}
+function tl(it,i){var lab=(it.em||it.col)?it.word:(it.tb||it.big);return '<button class="tile'+(it.col?' cl':'')+'" id="t'+i+'"'+(it.col?' style="background:'+it.col+'"':'')+' aria-label="'+esc(lab)+'" onclick="pick('+i+')">'+(it.col?'<small>'+it.word+'</small>':(it.tb||it.big))+'</button>'}
+function splash(){mode='splash';R('<div class="main mid"><div class="bholu">🐻</div><h2 style="font-size:2rem">Jungle Fun</h2><p class="note">Letters, अ आ, numbers, colors, animals, birds, flowers, food and more</p><button class="big" onclick="begin()">▶ Play</button></div>')}
+
+/* Android back button stays inside the app (set up on first tap, as browsers require) */
+var guarded=0;
+function guard(){if(guarded)return;guarded=1;try{history.pushState(null,'');window.addEventListener('popstate',function(){history.pushState(null,'');if(mode=='gate'&&GT)GT.back();else if(mode=='voice')settings();else if(mode=='play'||mode=='set'||mode=='album')home()})}catch(e){}}
+function begin(){ac();guard();home()}
+function go(k){if(!SETS[k])k='abc';S.tab=k;save();Q={k:k,n:0,rq:[],re:null,stk:0};ask()}
+
+function ask(){
+  mode='play';
+  Q.n++;Q.re=null;
+  var k=Q.k,it=draw(k);
+  if(!it){resetRange(k);it=draw(k)}
+  var all=items(k),pl=all.filter(function(x){return x!==it}),o=sh(pl).slice(0,Math.min(nch(k)-1,pl.length));
+  o.push(it);o=sh(o);Q.cur=it;Q.o=o;Q.w=0;Q.c=0;Q.lock=0;
+  var tot=all.length,dn=tot-pool(k).length,p,hear='<button class="sp" onclick="rep()" aria-label="Hear again">🔊 Hear</button>';
+  if(k=='num'){var bt='';for(var j=0;j<it.cnt;j++)bt+='<button class="em'+(it.cnt>10?' sm':'')+'" id="e'+j+'" onclick="cnt('+j+')">'+it.th+'</button>';p='<div class="pics">'+bt+'</div><div class="note">👆 Tap to count</div>'+hear}
+  else p='<div class="pic">'+(it.pic||'🎧')+'</div>'+(it.q?'<div class="bigl">'+it.q+'</div>':'')+hear+(k=='hin'&&VO.length&&!hasHi()?'<div class="note">No Hindi voice on this phone. Parents: see Settings.</div>':'');
+  frame(k,'<div class="prog"><i style="width:'+Math.round(dn/tot*100)+'%"></i><b>'+dn+' / '+tot+'</b></div><div class="stage" id="stg">'+p+'</div><div class="ch c'+o.length+'">'+o.map(tl).join('')+'</div>');
+  play(nm(k,it));
+}
+function rep(){ac();play(nm(Q.k,Q.cur))}
+function cnt(i){var e=$('#e'+i);if(!e||e.classList.contains('d'))return;e.classList.add('d');Q.c++;var n=D.num[Q.c-1],key=n&&rk('num',n,'n');play([hasRec(key)?['c',key,'en-IN',''+Q.c]:['t','en-IN',''+Q.c]])}
+function pick(i){
+  if(!Q||Q.lock)return;ac();
+  var it=Q.o[i],b=$('#t'+i),k=Q.k;if(!b||b.classList.contains('x'))return;
+  if(it===Q.cur){
+    Q.lock=1;b.classList.add('ok');good();S.stars++;touchDay();
+    var fst=!Q.w;
+    if(Q.re){                       /* a re-asked item: not counted in accuracy; wrong again = one more retry later */
+      var ri=Q.rq.indexOf(Q.re);if(ri>=0){if(fst||Q.re.t>=1)Q.rq.splice(ri,1);else{Q.re.t++;Q.re.due=Q.n+4}}
+    }else{
+      if(!fst)Q.rq.push({it:it,due:Q.n+4,t:0});
+      var r=S.sc[k]||(S.sc[k]={t:0,f:0});r.t++;if(fst)r.f++;
+    }
+    wset(k,it,fst);adj(k,fst);
+    if(S.stk<STK.length){S.sk++;if(S.sk>=10){S.sk=0;Q.stk=1}}
+    (S.dn[k]||(S.dn[k]={}))[iid(it)]=1;save();            /* solved = saved, even if the app is closed now */
+    $('#stg').innerHTML=stage(k,it);$('.sc').textContent='⭐ '+S.stars;
+    var e=ep,t0=Date.now();
+    /* move on only after the praise finishes speaking (min ~2 s on screen) */
+    yay(k,it,function(){later(next,Math.max(400,1900-(Date.now()-t0)),e)});
+  }else{
+    b.classList.add('x','shake');bad();Q.w++;
+    if(Q.w>=2)$('#t'+Q.o.indexOf(Q.cur)).classList.add('pulse');
+    play(nmw(k,Q.cur));
+  }
+}
+function yay(k,it,done){play(yayPlan(k,it),done)}
+function next(){
+  var k=Q.k;
+  if(Q.stk){Q.stk=0;sticker(next);return}
+  if(!pool(k).length){
+    var n=SETS[k][S.cfg[k]][0],e,t0=Date.now();
+    frame(k,'<div class="stage"><div class="bholu">🎉</div><h2>You finished '+n+'!</h2><div class="pic">⭐⭐⭐</div></div>');
+    e=ep;good();S.bd[k]=(S.bd[k]||0)+1;save();
+    speak([k=='hin'?['hi-IN','शाबाश! सब पूरे हो गए!']:['en-IN','Amazing! You finished them all!']],function(){later(function(){resetRange(k);ask()},Math.max(600,2800-(Date.now()-t0)),e)});
+    return;
+  }
+  ask();
+}
+
+/* ---------- stickers ---------- */
+function sticker(after){
+  var s=STK[S.stk],e,t0=Date.now();S.stk++;save();
+  frame(Q.k,'<div class="stage"><div class="bholu">'+s+'</div><h2>New sticker!</h2><p class="note">'+S.stk+' of '+STK.length+' collected</p></div>');
+  e=ep;good();
+  speak([['en-IN','You got a new sticker!']],function(){later(after,Math.max(500,2600-(Date.now()-t0)),e)});
+}
+function album(){
+  mode='album';hush();Q=null;
+  var g=STK.map(function(x,i){return i<S.stk?'<span class="stk">'+x+'</span>':'<span class="stk lk">❓</span>'}).join('');
+  var b=TABS.filter(function(t){return t[0]!='set'&&S.bd[t[0]]}).map(function(t){var n=S.bd[t[0]];return '<span>'+t[1]+' '+t[2]+'</span><span>'+rp('🏅',Math.min(n,5))+(n>5?' ×'+n:'')+'</span>'}).join('');
+  var st=curStreak();
+  frame('album','<h2 style="text-align:center">🏆 My stickers</h2><p class="note" style="text-align:center">'+S.stk+' / '+STK.length+' · '+(S.stk>=STK.length?'You got them all! 🎉':'next sticker in '+(10-S.sk)+' ⭐')+(st?' · 🔥 '+st+' day'+(st>1?'s':''):'')+'</p><div class="sg">'+g+'</div>'+(b?'<div class="srow"><div>🏅 Finished rounds</div><div class="rep">'+b+'</div></div>':'')+'<button class="big" onclick="home()">Back</button>');
+}
+
+/* ---------- parent gate (in-app keypad; prompt() is blocked in many in-app browsers) ---------- */
+function gate(ok,back){var a=12+rnd(18),b=3+rnd(7);GT={a:a,b:b,ans:a+b,v:'',ok:ok,back:back};mode='gate';hush();
+  R('<div class="main mid"><div class="bholu still">🔒</div><h2>Parents only</h2><p class="note">Type the answer to continue</p><div class="gq">'+a+' + '+b+' = <span id="gv" class="gv">?</span></div><div class="pad">'+[1,2,3,4,5,6,7,8,9].map(kb).join('')+'<button class="key" onclick="kd(-1)" aria-label="Delete">⌫</button>'+kb(0)+'<button class="key go" onclick="kd(10)" aria-label="Check">✓</button></div><button class="ghost" onclick="GT.back()">Cancel</button></div>')}
+function kb(d){return '<button class="key" onclick="kd('+d+')">'+d+'</button>'}
+function kd(d){
+  var g=GT;if(!g)return;
+  if(d==10){
+    if(g.v&&+g.v==g.ans){GT=null;g.ok();return}
+    var x=$('#gv'),e=ep;bad();x.classList.remove('shake');void x.offsetWidth;x.classList.add('shake');
+    setTimeout(function(){if(e==ep)gate(g.ok,g.back)},450);return;
+  }
+  if(d==-1)g.v=g.v.slice(0,-1);else if(g.v.length<3)g.v+=d;
+  $('#gv').textContent=g.v||'?';
+}
+function openSet(){gate(settings,home)}
+
+/* ---------- parent settings ---------- */
+function vsel(p,key,label){
+  var c=VO.filter(function(v){return vl(v).slice(0,2)==p}).sort(function(a,b){return vs(b,p+'-IN')-vs(a,p+'-IN')});
+  if(!c.length)return '';
+  return '<div class="srow"><div>'+label+'</div><div class="vr"><select class="sel" onchange="setv(\''+key+'\',this.value)"><option value="">Auto (best voice)</option>'+c.map(function(v){return '<option value="'+esc(v.name)+'"'+(S.cfg[key]===v.name?' selected':'')+'>'+esc(v.name)+' ('+esc(vl(v))+')</option>'}).join('')+'</select><button class="chip" onclick="testv(\''+p+'\')">▶ Test</button></div></div>';
+}
+function setv(k,v){S.cfg[k]=v;save()}
+function weakBlock(){
+  var o=[];
+  KEYS.forEach(function(k){var m=S.wk[k]||{};(k=='abc'?[D.abc0,D.abc1,D.abc2]:[D[k]]).forEach(function(l){l.forEach(function(it){var v=m[iid(it)];if(v)o.push([v,k,it])})})});
+  o.sort(function(a,b){return b[0]-a[0]});
+  var rows=o.slice(0,12).map(function(x){var it=x[2],t=TABS.filter(function(z){return z[0]==x[1]})[0];return '<span>'+(it.em||it.pic||'')+' '+esc(it.word||it.big||'')+((x[1]=='abc'||x[1]=='hin')&&it.word?' ('+esc(it.big)+')':'')+'</span><span>'+t[2]+'</span>'}).join('');
+  return '<div class="srow"><div>🎯 Needs practice (these come back more often)</div><div class="rep">'+rows+'</div>'+(rows?'':'<p class="note">Nothing yet — great!</p>')+'</div>';
+}
+function voiceRow(){
+  var n=Object.keys(RK).length;
+  if(!secureOk())return '<div class="srow"><div>🎙️ My recorded voice (optional)</div><div class="warn">'+NOSEC+'</div></div>';
+  if(!canRec())return '<div class="srow"><div>🎙️ My recorded voice (optional)</div><p class="note">Recording isn’t available in this browser, so the default voice is used. Open the game in Chrome to record your own voice.</p></div>';
+  return '<div class="srow"><div>🎙️ My recorded voice (optional)</div><p class="note">Record your own voice for any letter or word. Anything you don’t record keeps the default voice. Recordings stay on this phone ('+n+' saved).</p><div class="chips"><button class="chip'+(S.cfg.rec?' on':'')+'" onclick="setc(\'rec\',1)">Use my recordings</button><button class="chip'+(S.cfg.rec?'':' on')+'" onclick="setc(\'rec\',0)">Default voice only</button></div><div class="chips"><button class="chip" onclick="voice()">🎙️ Open voice studio</button></div></div>';
+}
+/* ---------- voice studio (parents) ---------- */
+var VK='abc',VL=[];
+function allItems(k){return k=='abc'?D.abc0:D[k]}
+function slotsOf(k,it){
+  var s=[['n',k=='abc'?'Letter':k=='hin'?'Sound':k=='num'?'Number':'Name']];
+  if(k=='abc')s.push(['p','“'+it.say+'”']);
+  else if(k=='hin'&&it.word)s.push(['p','“'+it.big+' से '+it.word+'”']);
+  if(it.hi)s.push(['h','हिन्दी']);
+  return s;
+}
+function recCount(k){return allItems(k).filter(function(it){return RK[rk(k,it,'n')]}).length}
+function voice(k){mode='voice';hush();recStop();if(k)VK=k;if(!VM&&!secureOk())VM=NOSEC;micState();renderVoice()}
+function renderVoice(){
+  var m=$('.main'),st=m?m.scrollTop:0,k=VK;
+  VL=allItems(k).map(function(it){return{k:k,it:it}});
+  var chips=KEYS.map(function(x){var t=TABS.filter(function(z){return z[0]==x})[0],n=recCount(x);return '<button class="chip sm'+(x==k?' on':'')+'" onclick="voice(\''+x+'\')">'+t[1]+(n?' · '+n:'')+'</button>'}).join('');
+  var rows=VL.map(function(v,i){
+    var it=v.it,lab=(k=='abc'||k=='hin'||k=='num')?it.big:(it.em||it.pic||''),nm=k=='hin'?(it.word||'—'):(it.word||it.big);
+    return '<div class="vrow"><span class="lab">'+lab+'</span><span class="nm">'+esc(nm)+'</span>'+slotsOf(k,it).map(function(s){var key=rk(k,it,s[0]),has=RK[key],on=RC&&RC.key==key;return '<span class="vsl"><small>'+esc(s[1])+'</small><button class="chip sm'+(on?' rec':'')+(has?' has':'')+'" onclick="vrec('+i+',\''+s[0]+'\')" aria-label="Record">'+(on?'⏹':'🎙')+'</button>'+(has?'<button class="chip sm" onclick="vplay('+i+',\''+s[0]+'\')" aria-label="Play">▶</button><button class="chip sm" onclick="vdel('+i+',\''+s[0]+'\')" aria-label="Delete">✕</button>':'')+'</span>'}).join('')+'</div>';
+  }).join('');
+  frame('set','<h2>🎙️ My voice</h2><p class="note">Tap 🎙, say it, tap ⏹ (it also stops by itself after 5 seconds). Anything you don’t record keeps using the default voice.</p>'+(VM?'<div class="warn">'+esc(VM)+'</div>':(MP=='denied'&&secureOk()?'<div class="warn">'+esc(micWhy({name:'NotAllowedError'}))+'</div>':''))+'<div class="chips">'+chips+'</div>'+rows+'<button class="big" onclick="settings()">Done</button>');
+  m=$('.main');if(m)m.scrollTop=st;
+}
+function vrec(i,slot){
+  var v=VL[i];if(!v||RB)return;var key=rk(v.k,v.it,slot);
+  if(RC){var same=RC.key==key;recStop();if(same)return}
+  recStart(key);
+}
+function recStart(key){
+  if(!secureOk()){VM=NOSEC;renderVoice();return}
+  if(!canRec()){VM='Recording is not available in this browser (try Chrome). The default voice will be used.';renderVoice();return}
+  hush();RB=1;VM='';
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){
+    var mr,ch=[],rc;
+    try{mr=new MediaRecorder(st)}catch(e){st.getTracks().forEach(function(t){t.stop()});RB=0;VM='Recording is not supported here.';renderVoice();return}
+    mr.ondataavailable=function(e){if(e.data&&e.data.size)ch.push(e.data)};
+    mr.onstop=function(){
+      clearTimeout(rc.t);st.getTracks().forEach(function(t){t.stop()});if(RC===rc)RC=null;
+      var b=new Blob(ch,{type:mr.mimeType||'audio/webm'});
+      if(b.size>800)rput(key,b).then(refreshVoice,function(){VM='Could not save the recording on this phone.';refreshVoice()});
+      else{VM='Nothing was recorded. Please try again.';refreshVoice()}
+    };
+    rc=RC={key:key,mr:mr,t:setTimeout(function(){try{if(mr.state!='inactive')mr.stop()}catch(e){}},5000)};
+    RB=0;mr.start();renderVoice();
+  }).catch(function(e){RB=0;VM=micWhy(e);renderVoice()});
+}
+function recStop(){try{if(RC&&RC.mr&&RC.mr.state!='inactive')RC.mr.stop()}catch(e){}}
+function refreshVoice(){if(mode=='voice')renderVoice()}
+function vplay(i,slot){var v=VL[i];if(!v)return;ac();play([['c',rk(v.k,v.it,slot)]])}
+function vdel(i,slot){var v=VL[i];if(!v)return;rdel(rk(v.k,v.it,slot)).then(refreshVoice,refreshVoice)}
+function testv(p){ac();if(p=='hi')speak([['hi-IN','क से कबूतर']]);else speak([['en-IN','Hello! Find the letter A']])}
+function settings(){
+  mode='set';recStop();
+  var w=(window.speechSynthesis&&VO.length&&!hasHi())?'<div class="warn">This phone has no Hindi voice, so Hindi will be shown but not spoken. Install Hindi in the phone’s text-to-speech settings (Google Text-to-Speech → Hindi).</div>':'';
+  var played=TABS.filter(function(t){return t[0]!='set'&&S.sc[t[0]]&&S.sc[t[0]].t}),solved=TABS.filter(function(t){return t[0]!='set'&&prog(t[0])[0]>0});
+  frame('set','<h2>Parent settings</h2>'+(OFF?'<p class="note">📶 Ready to play without internet.</p>':(window.isSecureContext&&/^https:$/.test(location.protocol)?'':'<p class="note">📴 Opened as a file: the game works, but voice recording needs the https link.</p>'))+'<p class="note">Saved on this phone. Solved items stay saved until the round is finished. An item answered wrongly comes back a few questions later.</p>'+w+
+   '<div class="srow"><div>✅ Solved so far (saved)</div><div class="rep">'+solved.map(function(t){var p=prog(t[0]);return '<span>'+t[2]+'</span><span>'+p[0]+' / '+p[1]+'</span>'}).join('')+'</div>'+(solved.length?'':'<p class="note">Nothing solved yet.</p>')+'</div>'+
+   '<div class="srow"><div>📊 Accuracy (right on first try)</div><div class="rep">'+played.map(function(t){var r=S.sc[t[0]];return '<span>'+t[2]+'</span><span>'+r.f+' / '+r.t+' ('+Math.round(r.f/r.t*100)+'%)</span>'}).join('')+'</div>'+(played.length?'':'<p class="note">No games played yet.</p>')+'</div>'+
+   weakBlock()+ROWS.map(function(r){return '<div class="srow"><div>'+r[0]+'</div><div class="chips">'+r[2].map(function(o){return '<button class="chip'+(S.cfg[r[1]]===o[1]?' on':'')+'" onclick="setc(\''+r[1]+'\','+o[1]+')">'+o[0]+'</button>'}).join('')+'</div></div>'}).join('')+
+   voiceRow()+vsel('en','ve','🗣️ English voice')+vsel('hi','vh','🗣️ Hindi voice')+
+   '<button class="big" onclick="home()">Done</button><button class="ghost" onclick="rst(\'dn\')">'+(CF=='dn'?'⚠️ Tap again to restart solved progress':'Restart all solved progress')+'</button><button class="ghost" onclick="rst(\'all\')">'+(CF=='all'?'⚠️ Tap again to reset stars, accuracy and practice list':'Reset stars, accuracy and practice list (stickers stay)')+'</button>');
+}
+var CF='';
+function rst(w){if(CF!=w)CF=w;else{CF='';if(w=='dn')S.dn={};else{S.stars=0;S.sc={};S.wk={};S.ad={}}save()}keepScroll(settings)}
+function keepScroll(fn){var m=$('.main'),st=m?m.scrollTop:0;fn();m=$('.main');if(m)m.scrollTop=st}
+function setc(k,v){
+  S.cfg[k]=v;if(k=='min')used=0;if(k=='snd'&&!v)hush();save();
+  var m=$('.main'),st=m?m.scrollTop:0;settings();m=$('.main');if(m)m.scrollTop=st;
+}
+
+/* ---------- play-time limit: counts only visible play time per day; survives reload / closing the app ---------- */
+setInterval(function(){var t=ymd(new Date());if(t!=TODAY){TODAY=t;used=0}
+  if(mode=='play'&&!document.hidden&&S.cfg.min){used+=5;if(used>=S.cfg.min*60)sleep();else if(used%30==0)save()}},5000);
+function sleep(){S.sleep=1;save();mode='sleep';hush();R('<div class="main mid"><div class="bholu">😴</div><h2>Bear is sleeping</h2><p>See you later! 🌙</p><button class="ghost" onclick="gate(wake,sleep)">Parents</button></div>')}
+function wake(){S.sleep=0;used=0;save();ac();guard();home()}
+document.addEventListener('visibilitychange',function(){if(document.hidden){hush();save()}});
+/* belt and braces: flush progress when the app is closed or sent to the background */
+window.addEventListener('pagehide',function(){save()});
+
+/* offline: once opened from the https link, the game is saved on the phone and opens without internet */
+var OFF=0;
+try{if('serviceWorker' in navigator&&window.isSecureContext&&/^https?:$/.test(location.protocol)){navigator.serviceWorker.register('sw.js').then(function(){return navigator.serviceWorker.ready}).then(function(){OFF=1}).catch(function(){})}}catch(e){}
+
+if(S.sleep)sleep();else splash();
+</script>
+</body>
+</html>
