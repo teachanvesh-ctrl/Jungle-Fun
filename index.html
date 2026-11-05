@@ -91,6 +91,92 @@ button:focus-visible{outline:3px solid var(--mango);outline-offset:2px}
 .chip.rec{background:#E53935;border-color:#E53935;color:#fff}
 .chip.has{border-color:var(--leaf)}
 .chip.sm{min-height:38px;padding:0 10px}
+/* ---------- v6: splash scene, home grid, learn mode, compact settings ---------- */
+:root{--sky1:#8FD3FF;--sky2:#E8F8FF;--sun:#FFD54F;--h1:#9CCC65;--h2:#66BB6A;--h3:#43A047}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sky1:#0B1D3A;--sky2:#2A4A70;--sun:#FFF3C4;--h1:#2E5E3A;--h2:#23492D;--h3:#183A22}}
+:root[data-theme="dark"]{--sky1:#0B1D3A;--sky2:#2A4A70;--sun:#FFF3C4;--h1:#2E5E3A;--h2:#23492D;--h3:#183A22}
+.spl{height:100%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:0 16px 14px;overflow:hidden}
+.scene{position:relative;width:calc(100% + 32px);flex:1;min-height:230px;max-height:60vh;overflow:hidden;border-radius:0 0 34px 34px;box-shadow:0 6px 0 var(--line)}
+.scene .bg{position:absolute;inset:0;width:100%;height:100%}
+.scene .e{position:absolute;font-size:var(--s,2.4rem);line-height:1}
+.pk{animation:peek 3.2s ease-in-out infinite}
+.fly{left:-14%;animation:flyx 10s linear infinite}
+.flt{animation:flt 6s ease-in-out infinite}
+.hero{position:absolute;left:50%;bottom:-2%;width:44%;max-width:210px;transform:translateX(-50%)}
+.hero .bear{display:block;width:100%;height:auto;animation:bob 2.4s ease-in-out infinite}
+.bear .arm{transform-origin:150px 150px;animation:wave 1.8s ease-in-out infinite}
+.bear .eyes{transform-origin:100px 75px;animation:blink 5s infinite}
+.scene .sun{position:absolute;top:4%;right:5%;width:84px;height:84px;animation:spin 30s linear infinite}
+.scene .cl{position:absolute;left:0;width:92px;opacity:.9;animation:drift 38s linear infinite}.scene .cl.c2{width:64px;opacity:.7;animation-duration:54s;animation-delay:-22s}
+.scene .cl svg{display:block;width:100%;height:auto}
+.ttl{margin:8px 0 0;font-size:clamp(2.6rem,12vw,3.6rem);line-height:1}
+.ttl span{display:inline-block;animation:hop 3s ease-in-out infinite;text-shadow:0 3px 0 var(--card),0 5px 0 rgba(0,0,0,.12)}
+.sub{font-size:1.1rem;opacity:.85}
+.big.play{min-width:210px;min-height:68px;font-size:1.7rem;margin-top:4px}
+@keyframes peek{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px) rotate(-5deg)}}
+@keyframes flyx{from{transform:translateX(0) scaleX(-1)}to{transform:translateX(640px) scaleX(-1)}}
+@keyframes flt{0%,100%{transform:translate(0,0)}25%{transform:translate(24px,-14px)}50%{transform:translate(48px,4px)}75%{transform:translate(18px,12px)}}
+@keyframes wave{0%,100%{transform:rotate(8deg)}50%{transform:rotate(-16deg)}}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes drift{from{transform:translateX(-110px)}to{transform:translateX(560px)}}
+@keyframes hop{0%,72%,100%{transform:none}80%{transform:translateY(-10px)}88%{transform:translateY(0)}}
+/* home */
+.hello{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:6px 12px 6px 8px;flex:none}
+.hello .bear{width:56px;height:58px;flex:none}
+.ht{flex:1;display:flex;flex-direction:column;line-height:1.15;min-width:0}.ht b{font-size:1.25rem}.ht span{font-size:.88rem;opacity:.75}
+.fire{background:var(--bg);border-radius:14px;padding:2px 10px;flex:none}
+.goal{display:flex;align-items:center;gap:8px;font-size:.88rem;flex:none;padding:0 4px}
+.gb{display:block;flex:1;height:8px;border-radius:4px;background:var(--line);overflow:hidden}.gb i{display:block;height:100%;background:var(--leaf);border-radius:4px;transition:width .4s}
+.stkc{display:flex;align-items:center;gap:10px;border:0;border-radius:18px;padding:6px 14px;min-height:54px;font:inherit;font-size:1.15rem;color:#17352F;background:linear-gradient(135deg,#FFE082,#FFB627);box-shadow:0 3px 0 #D99410;text-align:left;flex:none}
+.stkc span:first-child{font-size:1.7rem}.stkc .acc{margin-left:auto}
+.stkc:active,.gc:active,.mode:active{transform:translateY(2px)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:none}
+.gc{display:flex;flex-direction:column;align-items:flex-start;gap:3px;border:1px solid var(--line);border-top:6px solid var(--gc);background:var(--card);color:var(--ink);border-radius:18px;padding:8px 10px 9px;font:inherit;text-align:left;box-shadow:0 3px 0 var(--line);min-height:108px}
+.gi{font-size:2rem;line-height:1.15}
+.gn{font-size:1rem;line-height:1.1;flex:1}
+.gc .gb{width:100%;flex:none;height:6px}.gc .gb i{background:var(--gc)}
+.gs{font-size:.72rem;opacity:.75}
+.shp{width:1.15em;height:1.15em;display:inline-block;vertical-align:middle}.tile .shp{width:1.5em;height:1.5em}
+.grid .gc:last-child:nth-child(odd){grid-column:span 2;min-height:96px}
+.dot{display:inline-block;width:1em;height:1em;border-radius:50%;box-shadow:0 0 0 2px var(--line);vertical-align:middle}
+/* learn or play */
+.chz{background:var(--card);border:1px solid var(--line);border-top:8px solid var(--gc);border-radius:22px;padding:12px;text-align:center;flex:none}
+.chi{font-size:3.2rem;line-height:1.15}
+.pv{display:flex;justify-content:center;gap:12px;font-size:1.8rem;margin-top:8px;flex-wrap:wrap}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;min-height:160px;max-height:300px}
+.mode{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:0;border-radius:26px;font:inherit;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.mode span{font-size:3.2rem;line-height:1.1}.mode b{font-size:1.6rem}.mode small{font-size:1.05rem;opacity:.92}
+.mode.lrn{background:linear-gradient(160deg,#4FC3F7,#1E88E5)}.mode.pl{background:linear-gradient(160deg,#81C784,#2E7D32)}
+.lc{font:inherit;color:inherit;width:100%;cursor:pointer;font-size:1.45rem;gap:6px}
+.lc .pic.xl,.lc .bigl{font-size:clamp(4.5rem,19vh,8.5rem)}.lc .pic{font-size:clamp(3rem,10vh,5rem)}.lc .swatch{width:clamp(110px,24vh,190px);height:clamp(110px,24vh,190px)}.lc .note{font-size:1.1rem}
+.lnav{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:none}
+.key.nav{height:66px;font-size:1.8rem}.key[disabled]{opacity:.35}
+/* confetti */
+.cf{position:fixed;left:50%;top:42%;width:0;height:0;pointer-events:none;z-index:20}
+.cf span{position:absolute;left:0;top:0;font-size:1.5rem;animation:cfly 1.3s ease-out forwards}
+@keyframes cfly{0%{transform:translate(-50%,-50%) scale(.3);opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(var(--r)) scale(1);opacity:0}}
+/* compact settings */
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;flex:none}
+.sum div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 2px;text-align:center;display:flex;flex-direction:column}
+.sum b{font-size:.98rem}.sum small{font-size:.66rem;opacity:.7}
+.dt{background:var(--card);border:1px solid var(--line);border-radius:16px;flex:none}
+.dt summary{list-style:none;cursor:pointer;padding:11px 14px;display:flex;align-items:center;gap:8px;min-height:48px}
+.dt summary::-webkit-details-marker{display:none}
+.dt summary::after{content:'▾';opacity:.55;transition:transform .2s}
+.dt[open] summary::after{transform:rotate(180deg)}
+.st{flex:1}.sx{font-size:.75rem;opacity:.65}
+.db{padding:8px 12px 12px;display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line)}
+.orow{display:flex;align-items:center;gap:8px;min-height:42px}
+.orow>span{font-size:.88rem;flex:1;min-width:0;line-height:1.15}
+.orow .sel{flex:0 1 54%;min-height:38px}
+.seg{display:inline-flex;flex:none;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:2px;gap:2px}
+.seg button{border:0;background:none;color:var(--ink);font:inherit;font-size:.8rem;min-height:34px;min-width:36px;padding:0 8px;border-radius:10px}
+.seg button.on{background:var(--mango);color:#17352F}
+.tbl{display:grid;grid-template-columns:1fr auto auto;gap:3px 12px;font-size:.85rem}
+.th{opacity:.6;font-size:.72rem}
+.db .srow{border:0;padding:6px 0 0;background:none}
+.db .ghost{text-align:left;padding:8px 0}
 </style>
 </head>
 <body>
@@ -98,13 +184,13 @@ button:focus-visible{outline:3px solid var(--mango);outline-offset:2px}
 <script>
 /* ---------- core ---------- */
 var ep=0,$=function(s){return document.querySelector(s)},R=function(h){ep++;$('#app').innerHTML=h};
-var KEYS=['abc','hin','num','col','ani','bir','thg','hom','flw','fod','clo','job','nat'];
+var KEYS=['abc','hin','num','col','shp','ani','bir','flw','nat','thg','frv','veh','hom','fod','clo','sch','bod','fel','act','job','ply','ind'];
 /* dn = solved items per section (saved), sc = accuracy report, cfg = parent settings */
-var S={v:3,stars:0,tab:'abc',sleep:0,sc:{},dn:{},wk:{},ad:{},bd:{},stk:-1,sk:0,day:'',streak:0,cfg:{cs:0,hi:1,ch:0,snd:1,min:10,rate:1,ve:'',vh:'',rec:1}};
+var S={v:3,stars:0,tab:'abc',sleep:0,sc:{},dn:{},wk:{},ad:{},bd:{},stk:-1,sk:0,day:'',streak:0,cfg:{cs:0,hi:1,ch:0,snd:1,min:10,rate:1,ve:'',vh:'',rec:1,name:'',goal:20,hide:{}},td:{d:'',n:0}};
 KEYS.forEach(function(k){S.cfg[k]=0});
 var Q=null,AC=null,mode='splash',used=0,TODAY=ymd(new Date()),GT=null,VO=[],LD={};
 try{var d=JSON.parse(localStorage.getItem('jf3'));if(d){S.stars=+d.stars||0;S.tab=d.tab||'abc';S.sleep=d.sleep?1:0;if(d.cfg)Object.assign(S.cfg,d.cfg);
-  ['sc','dn','wk','ad','bd'].forEach(function(x){if(d[x]&&typeof d[x]=='object')S[x]=d[x]});
+  ['sc','dn','wk','ad','bd','td'].forEach(function(x){if(d[x]&&typeof d[x]=='object')S[x]=d[x]});
   if(typeof d.stk=='number')S.stk=d.stk;if(typeof d.sk=='number')S.sk=d.sk;if(typeof d.day=='string')S.day=d.day;S.streak=+d.streak||0;
   if(d.ud==TODAY)used=+d.used||0;   /* play time already used today */
   if(!d.v&&S.cfg.ch==3)S.cfg.ch=0;   /* older versions: 3 was only the default, so move to Auto once */
@@ -233,12 +319,12 @@ function nm(k,it){
 }
 function nmw(k,it){var a=nm(k,it);return (a[0][0]=='c'||k=='hin')?a:[['t',lg(k),'Try again'],a[0]]}
 /* praise: recorded name/phrase if there is one (then no robot "Great job"), otherwise default voice as before */
-function yayPlan(k,it){
+function yayPlan(k,it,np){
   var kn=rk(k,it,'n'),kp=rk(k,it,'p'),kh=rk(k,it,'h'),segs=[],ph;
   if((k=='abc'||k=='hin')&&hasRec(kp))ph=['c',kp,lg(k),it.say];
   else if(hasRec(kn))ph=['c',kn,lg(k),it.say];
   else ph=['t',lg(k),it.say];
-  if(ph[0]=='t')segs.push(['t',lg(k),pr(k)]);
+  if(ph[0]=='t'&&!np)segs.push(['t',lg(k),pr(k)]);
   segs.push(ph);
   if(S.cfg.hi&&it.hi)segs.push(hasRec(kh)?['c',kh,'hi-IN',it.hi]:['t','hi-IN',it.hi]);
   return segs;
@@ -250,46 +336,86 @@ D.abc='A|Apple|🍎,B|Ball|⚽,C|Cat|🐱,D|Dog|🐶,E|Elephant|🐘,F|Fish|🐟
 D.abc0=D.abc;
 D.abc1=D.abc0.map(function(x){return Object.assign({},x,{big:x.big.toLowerCase(),ask:'Find the small letter '+x.big})});
 D.abc2=D.abc0.map(function(x){return Object.assign({},x,{big:x.big+x.big.toLowerCase(),tb:x.big.toLowerCase(),q:x.big,ask:'Find the small letter for '+x.big})});
-D.hin='अ|अनानास|🍍,आ|आम|🥭,इ|इंजन|🚂,ई|ईंट|🧱,उ|उल्लू|🦉,ऊ|ऊँट|🐪,ऋ|ऋषि|🧘,ए|एक|1️⃣,ऐ|ऐनक|👓,ओ|ओस|💧,औ|औज़ार|🔧,अं|अंगूर|🍇,अः||,क|कबूतर|🕊️,ख|खरगोश|🐰,ग|गाय|🐄,घ|घर|🏠,ङ||,च|चम्मच|🥄,छ|छतरी|☂️,ज|जहाज़|🚢,झ|झंडा|🚩,ञ||,ट|टमाटर|🍅,ठ|ठंड|❄️,ड|डिब्बा|📦,ढ|ढोल|🥁,ण||,त|तरबूज़|🍉,थ|थाली|🍽️,द|दरवाज़ा|🚪,ध|धनुष|🏹,न|नल|🚰,प|पतंग|🪁,फ|फूल|🌸,ब|बतख|🦆,भ|भालू|🐻,म|मछली|🐟,य|यान|🚀,र|रेल|🚆,ल|लड़की|👧,व|वायुयान|✈️,श|शेर|🦁,ष||,स|सेब|🍎,ह|हाथी|🐘,क्ष|क्षमा|🙏,त्र|त्रिशूल|🔱,ज्ञ|ज्ञान|📚'.split(',').map(function(s){s=s.split('|');return{big:s[0],word:s[1],pic:s[2],sp:SP[s[0]]||s[0],say:s[1]?(SP[s[0]]||s[0])+' से '+s[1]:(SP[s[0]]||s[0]),ask:SP[s[0]]||s[0]}});
+D.hin='अ|अनानास|🍍,आ|आम|🥭,इ|इंजन|🚂,ई|ईंट|🧱,उ|उल्लू|🦉,ऊ|ऊँट|🐪,ऋ|ऋषि|🧘,ए|एक|1️⃣,ऐ|ऐनक|👓,ओ|ओस|💧,औ|औज़ार|🔧,अं|अंगूर|🍇,अः||,क|कबूतर|🕊️,ख|खरगोश|🐰,ग|गाय|🐄,घ|घर|🏠,ङ||,च|चम्मच|🥄,छ|छतरी|☂️,ज|जहाज़|🚢,झ|झंडा|🇮🇳,ञ||,ट|टमाटर|🍅,ठ|ठंड|❄️,ड|डिब्बा|📦,ढ|ढोल|🥁,ण||,त|तरबूज़|🍉,थ|थाली|🍽️,द|दरवाज़ा|🚪,ध|धनुष|🏹,न|नल|🚰,प|पतंग|🪁,फ|फूल|🌸,ब|बतख|🦆,भ|भालू|🐻,म|मछली|🐟,य|यान|🚀,र|रेल|🚆,ल|लड़की|👧,व|वायुयान|✈️,श|शेर|🦁,ष||,स|सेब|🍎,ह|हाथी|🐘,क्ष|क्षमा|🙏,त्र|त्रिशूल|🔱,ज्ञ|ज्ञान|📚'.split(',').map(function(s){s=s.split('|');return{big:s[0],word:s[1],pic:s[2],sp:SP[s[0]]||s[0],say:s[1]?(SP[s[0]]||s[0])+' से '+s[1]:(SP[s[0]]||s[0]),ask:SP[s[0]]||s[0]}});
 D.num=[];var TH=['🍎','⭐','🐥','🎈'];
 for(var i=1;i<=20;i++)D.num.push({big:''+i,th:TH[Math.floor((i-1)/5)],cnt:i,say:''+i,ask:'Count them. How many?'});
-D.col=[['#E53935','Red','🍎','लाल'],['#FDD835','Yellow','🍌','पीला'],['#1E88E5','Blue','🐳','नीला'],['#43A047','Green','🐸','हरा'],['#FB8C00','Orange','🥕','नारंगी'],['#F06292','Pink','🐷','गुलाबी'],['#8E24AA','Purple','🍇','बैंगनी'],['#212121','Black','🕶️','काला'],['#795548','Brown','🍫','भूरा'],['#FFFFFF','White','☁️','सफ़ेद'],['#9E9E9E','Grey','🐘','स्लेटी'],['#4FC3F7','Sky Blue','🦋','आसमानी'],['#D4AF37','Golden','🏆','सुनहरा'],['#C0C0C0','Silver','🥈','चाँदी']].map(function(c){return{big:'',col:c[0],word:c[1],pic:c[2],hi:c[3],say:c[1],ask:'Find '+c[1]}});
+D.col=[['#E53935','Red','🍎','लाल'],['#FDD835','Yellow','🍌','पीला'],['#1E88E5','Blue','🐳','नीला'],['#43A047','Green','🐸','हरा'],['#FB8C00','Orange','🍊','नारंगी'],['#F06292','Pink','🐷','गुलाबी'],['#8E24AA','Purple','🍇','बैंगनी'],['#212121','Black','🕶️','काला'],['#795548','Brown','🍫','भूरा'],['#FFFFFF','White','☁️','सफ़ेद'],['#757575','Grey','🐘','स्लेटी'],['#4FC3F7','Sky Blue','🦋','आसमानी'],['linear-gradient(135deg,#FFF0A8,#D4AF37 50%,#8F6B00)','Golden','🏆','सुनहरा'],['linear-gradient(135deg,#FFFFFF,#C9CED3 45%,#8A9199)','Silver','🥈','चाँदी']].map(function(c){return{big:'',col:c[0],word:c[1],pic:c[2],hi:c[3],say:c[1],ask:'Find '+c[1]}});
 function W(s){return s.split(',').map(function(r){r=r.split('|');return{big:'',tb:r[0],pic:'',em:r[0],word:r[1],hi:r[2],say:r[1],ask:'Find the '+r[1]}})}
-D.ani=W('🐶|Dog|कुत्ता,🐱|Cat|बिल्ली,🐄|Cow|गाय,🐐|Goat|बकरी,🐑|Sheep|भेड़,🐴|Horse|घोड़ा,🐷|Pig|सुअर,🐔|Hen|मुर्गी,🐰|Rabbit|खरगोश,🐫|Camel|ऊँट,🦁|Lion|शेर,🐯|Tiger|बाघ,🐘|Elephant|हाथी,🐒|Monkey|बंदर,🦒|Giraffe|जिराफ़,🦓|Zebra|ज़ेबरा,🐻|Bear|भालू,🦌|Deer|हिरण,🐺|Wolf|भेड़िया,🦏|Rhino|गैंडा,🐊|Crocodile|मगरमच्छ,🦜|Parrot|तोता,🦆|Duck|बतख,🦉|Owl|उल्लू,🕊️|Pigeon|कबूतर,🦚|Peacock|मोर,🐟|Fish|मछली,🐢|Turtle|कछुआ,🐸|Frog|मेंढक,🐍|Snake|साँप,🦋|Butterfly|तितली,🐝|Bee|मधुमक्खी,🐜|Ant|चींटी');
 D.thg=W('🍎|Apple|सेब,🍌|Banana|केला,🥭|Mango|आम,🍇|Grapes|अंगूर,🍊|Orange|संतरा,🍉|Watermelon|तरबूज़,🍓|Strawberry|स्ट्रॉबेरी,🥕|Carrot|गाजर,🍅|Tomato|टमाटर,🥔|Potato|आलू,🌽|Corn|भुट्टा,🍋|Lemon|नींबू,👀|Eyes|आँखें,👂|Ear|कान,👃|Nose|नाक,👄|Mouth|मुँह,🦷|Tooth|दाँत,👅|Tongue|जीभ,✋|Hand|हाथ,🦶|Foot|पैर,🚗|Car|कार,🚌|Bus|बस,🚲|Cycle|साइकिल,🚂|Train|रेल,✈️|Aeroplane|हवाई जहाज़,🚢|Ship|जहाज़,🚁|Helicopter|हेलिकॉप्टर,🛺|Auto|ऑटो,⚽|Ball|गेंद,🪁|Kite|पतंग,☂️|Umbrella|छतरी,📚|Book|किताब,✏️|Pencil|पेंसिल,🎒|Bag|बस्ता,🪑|Chair|कुर्सी,🛏️|Bed|बिस्तर,🔑|Key|चाबी,⏰|Clock|घड़ी,🥄|Spoon|चम्मच,🍽️|Plate|थाली,🚪|Door|दरवाज़ा,🏠|House|घर,💡|Bulb|बल्ब,🧸|Teddy|टेडी');
-var SETS={abc:[['A–Z',0,26],['A–J',0,10],['K–T',10,20],['U–Z',20,26]],hin:[['सभी 49',0,49],['स्वर',0,13],['क–ञ',13,23],['ट–न',23,33],['प–ज्ञ',33,49]],num:[['1–20',0,20],['1–10',0,10],['11–20',10,20]],col:[['All 14',0,14],['Basic 8',0,8],['First 4',0,4],['More 6',8,14]],ani:[['All 33',0,33],['Farm & pets',0,10],['Wild',10,21],['Birds, water, bugs',21,33]],thg:[['All 44',0,44],['Fruits & veg',0,12],['Body',12,20],['Vehicles',20,28],['Objects',28,44]]};
-/* ---------- new sections: groups of 'emoji|English|Hindi' ---------- */
-function mk(g){var all=[],rg=[];g.forEach(function(x){var a=W(x[1]);rg.push([x[0]+' ('+a.length+')',all.length,all.length+a.length]);all=all.concat(a)});rg.unshift(['All '+all.length,0,all.length]);return{d:all,r:rg}}
+var SETS={abc:[['A–Z',0,26],['A–J',0,10],['K–T',10,20],['U–Z',20,26]],hin:[['सभी 49',0,49],['स्वर',0,13],['क–ञ',13,23],['ट–न',23,33],['प–ज्ञ',33,49]],num:[['1–20',0,20],['1–10',0,10],['11–20',10,20]],col:[['All 14',0,14],['Basic 8',0,8],['First 4',0,4],['More 6',8,14]],thg:[['All 44',0,44],['Fruits & veg',0,12],['Body',12,20],['Vehicles',20,28],['Objects',28,44]]};
+/* ---------- picture-word sections: groups of 'emoji|English|Hindi' ---------- */
+/* an emoji newer than the phone's emoji font shows as an empty box, so such words are left out on that phone */
+var EMC=null;
+function emPx(e){var x=EMC.x;x.clearRect(0,0,48,48);x.fillText(e,4,4);var d=x.getImageData(0,0,48,48).data,h=0,n=0,c=0;for(var i=0;i<d.length;i+=8){h=(h*31+d[i]+d[i+1]*3+d[i+2]*7+d[i+3]*11)|0;if(d[i+3]>40){n++;if(Math.abs(d[i]-d[i+1])>30||Math.abs(d[i+1]-d[i+2])>30)c++}}EMC.c=n?c/n:0;return n?h:0}
+function emOK(e){
+  try{
+    if(e.charAt(0)=='<')return true;   /* drawn shapes always work */
+    if(!EMC){var cv=document.createElement('canvas');cv.width=cv.height=48;var x=cv.getContext('2d',{willReadFrequently:true});if(!x)return true;
+      x.font='32px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif';x.textBaseline='top';
+      EMC={x:x,w:x.measureText('\uD83D\uDE00').width};EMC.t=emPx('\uDBFF\uDFFD')}
+    if(EMC.x.measureText(e).width>EMC.w*1.5)return false;   /* a joined emoji the phone splits into two pictures */
+    var h=emPx(e);if(h===0||h===EMC.t)return false;   /* phones draw every missing emoji as the same empty box */
+    return true;
+  }catch(err){return true}
+}
+/* shapes are drawn (SVG), each in its own colour */
+var SHC=['#E53935','#1E88E5','#43A047','#FB8C00','#8E24AA','#F06292','#00ACC1','#FDD835','#5C6BC0','#26A69A','#FF7043','#8D6E63','#EC407A','#7CB342'];
+function SHP(l,o){return l.map(function(r,i){var v='<svg class="shp" viewBox="0 0 100 100" aria-hidden="true"><g fill="'+SHC[(i+o)%SHC.length]+'">'+r[0]+'</g></svg>';return{big:'',tb:v,pic:'',em:v,word:r[1],hi:r[2],say:r[1],ask:'Find the '+r[1]}})}
+function mk(g){var all=[],rg=[];g.forEach(function(x){var a=(typeof x[1]=='string'?W(x[1]):x[1]).filter(function(it){return emOK(it.em)});if(!a.length)return;rg.push([x[0]+' ('+a.length+')',all.length,all.length+a.length]);all=all.concat(a)});rg.unshift(['All '+all.length,0,all.length]);return{d:all,r:rg}}
 var NEW={
 bir:[['Birds','🐦|Sparrow|चिड़िया,🦜|Parrot|तोता,🦚|Peacock|मोर,🦆|Duck|बतख,🦉|Owl|उल्लू,🕊️|Pigeon|कबूतर,🐔|Hen|मुर्गी,🐓|Rooster|मुर्गा,🦅|Eagle|बाज़,🦢|Swan|हंस,🦩|Flamingo|फ्लेमिंगो,🐧|Penguin|पेंगुइन,🦃|Turkey|टर्की,🐤|Chick|चूज़ा'],
  ['Bugs & small animals','🐝|Bee|मधुमक्खी,🦋|Butterfly|तितली,🐞|Ladybug|लेडीबग,🐜|Ant|चींटी,🦗|Cricket|झींगुर,🕷️|Spider|मकड़ी,🐛|Caterpillar|इल्ली,🐌|Snail|घोंघा,🦂|Scorpion|बिच्छू,🦟|Mosquito|मच्छर,🦐|Prawn|झींगा,🐙|Octopus|ऑक्टोपस,🦇|Bat|चमगादड़,🦀|Crab|केकड़ा,🦎|Lizard|छिपकली']],
-hom:[['Kitchen','🥄|Spoon|चम्मच,🍴|Fork|काँटा,🍽️|Plate|थाली,🥛|Glass|गिलास,☕|Cup|कप,🍳|Pan|कड़ाही,🍼|Baby bottle|दूध की बोतल,🧺|Basket|टोकरी,🚰|Tap|नल,🧂|Salt|नमक'],
- ['Rooms','🪑|Chair|कुर्सी,🛏️|Bed|बिस्तर,🛋️|Sofa|सोफ़ा,🚪|Door|दरवाज़ा,🖼️|Picture|तस्वीर,💡|Bulb|बल्ब,🔑|Key|चाबी,⏰|Clock|घड़ी,🗑️|Dustbin|कूड़ेदान,📦|Box|डिब्बा'],
- ['Bath & clean','🧹|Broom|झाड़ू,🚿|Shower|शावर,🛁|Bathtub|टब,🧼|Soap|साबुन,🧴|Shampoo|शैम्पू,🧻|Tissue roll|टिशू रोल'],
+hom:[['Kitchen','🥄|Spoon|चम्मच,🍴|Fork|काँटा,🍽️|Plate|थाली,🥛|Glass|गिलास,☕|Cup|कप,🍳|Pan|कड़ाही,🍼|Baby bottle|दूध की बोतल,🧺|Basket|टोकरी,🚰|Tap|नल,🧂|Salt|नमक,🫖|Kettle|केतली,🧽|Sponge|स्पंज'],
+ ['Rooms','🪑|Chair|कुर्सी,🛏️|Bed|बिस्तर,🛋️|Sofa|सोफ़ा,🚪|Door|दरवाज़ा,🖼️|Picture|तस्वीर,💡|Bulb|बल्ब,🔑|Key|चाबी,⏰|Clock|घड़ी,🗑️|Dustbin|कूड़ेदान,📦|Box|डिब्बा,🪟|Window|खिड़की,🪞|Mirror|शीशा'],
+ ['Bath & clean','🧹|Broom|झाड़ू,🚿|Shower|शावर,🛁|Bathtub|टब,🧼|Soap|साबुन,🧴|Shampoo|शैम्पू,🧻|Tissue roll|टिशू रोल,🪣|Bucket|बाल्टी,🪥|Toothbrush|टूथब्रश'],
  ['Gadgets','📺|TV|टीवी,☎️|Telephone|फ़ोन,📱|Mobile|मोबाइल,💻|Laptop|लैपटॉप,📻|Radio|रेडियो,🔦|Torch|टॉर्च,🕯️|Candle|मोमबत्ती,🔌|Plug|प्लग'],
  ['Tools & bags','🔨|Hammer|हथौड़ा,✂️|Scissors|कैंची,🧵|Thread|धागा,📌|Pin|पिन,🧳|Suitcase|सूटकेस,☂️|Umbrella|छतरी']],
-flw:[['Flowers','🌹|Rose|गुलाब,🌻|Sunflower|सूरजमुखी,🌷|Tulip|ट्यूलिप,🌺|Hibiscus|गुड़हल,🌼|Daisy|डेज़ी,🌸|Blossom|चेरी का फूल,💐|Bouquet|गुलदस्ता,🥀|Dry flower|मुरझाया फूल'],
+flw:[['Flowers','🌹|Rose|गुलाब,🌻|Sunflower|सूरजमुखी,🌷|Tulip|ट्यूलिप,🌺|Hibiscus|गुड़हल,🌼|Daisy|डेज़ी,🌸|Blossom|चेरी का फूल,💐|Bouquet|गुलदस्ता,🪷|Lotus|कमल'],
  ['Plants & trees','🌱|Seedling|पौधा,🌿|Grass|घास,🍀|Clover|तिपतिया,🍃|Leaf|पत्ता,🍂|Dry leaves|सूखे पत्ते,🍁|Maple leaf|मेपल का पत्ता,🌳|Tree|पेड़,🌲|Pine tree|चीड़ का पेड़,🌴|Palm tree|ताड़ का पेड़,🌵|Cactus|कैक्टस,🌾|Paddy|धान,🎍|Bamboo|बाँस,🍄|Mushroom|मशरूम'],
  ['Plant things','🥥|Coconut|नारियल,🥜|Peanut|मूँगफली,🌽|Corn|भुट्टा,🥦|Broccoli|ब्रोकली,🌶️|Chilli|मिर्च,🍆|Brinjal|बैंगन,🥒|Cucumber|खीरा,🍠|Sweet potato|शकरकंद,🧅|Onion|प्याज़']],
-fod:[['Sweets & snacks','🍰|Cake|केक,🧁|Cupcake|कपकेक,🍪|Biscuit|बिस्कुट,🍫|Chocolate|चॉकलेट,🍬|Candy|टॉफ़ी,🍭|Lollipop|लॉलीपॉप,🍦|Ice cream|आइसक्रीम,🍩|Doughnut|डोनट,🍮|Pudding|पुडिंग,🍯|Honey|शहद,🍿|Popcorn|पॉपकॉर्न,🥧|Pie|पाई'],
- ['Meals','🍚|Rice|चावल,🍛|Curry|करी,🍲|Soup|सूप,🍜|Noodles|नूडल्स,🍝|Pasta|पास्ता,🍕|Pizza|पिज़्ज़ा,🍔|Burger|बर्गर,🍟|Fries|फ्राइज़,🌭|Hot dog|हॉट डॉग,🥪|Sandwich|सैंडविच,🌮|Taco|टैको,🥟|Momo|मोमो,🍞|Bread|ब्रेड,🥞|Pancake|पैनकेक'],
+fod:[['Sweets & snacks','🍰|Cake|केक,🧁|Cupcake|कपकेक,🍪|Biscuit|बिस्कुट,🍫|Chocolate|चॉकलेट,🍬|Candy|टॉफ़ी,🍭|Lollipop|लॉलीपॉप,🍦|Ice cream|आइसक्रीम,🍩|Doughnut|डोनट,🍮|Pudding|पुडिंग,🍯|Honey|शहद,🍿|Popcorn|पॉपकॉर्न,🍧|Ice gola|बर्फ़ का गोला,🥧|Pie|पाई'],
+ ['Meals','🍚|Rice|चावल,🍛|Curry|करी,🍲|Soup|सूप,🍜|Noodles|नूडल्स,🍝|Pasta|पास्ता,🍕|Pizza|पिज़्ज़ा,🍔|Burger|बर्गर,🍟|Fries|फ्राइज़,🌭|Hot dog|हॉट डॉग,🥪|Sandwich|सैंडविच,🌮|Taco|टैको,🥟|Momo|मोमो,🫓|Roti|रोटी,🍞|Bread|ब्रेड,🥞|Pancake|पैनकेक,🥗|Salad|सलाद,🧆|Pakoda|पकौड़ा'],
  ['Drinks & more','🥛|Milk|दूध,🧃|Juice|जूस,🍵|Tea|चाय,🥤|Cold drink|कोल्ड ड्रिंक,🧀|Cheese|चीज़,🧈|Butter|मक्खन,🥚|Egg|अंडा,🥣|Bowl|कटोरी,🧂|Salt|नमक,🧊|Ice|बर्फ़']],
-clo:[['Clothes','👕|T-shirt|टी-शर्ट,👖|Jeans|जींस,👗|Dress|फ्रॉक,👔|Shirt|कमीज़,🧥|Coat|कोट,🥻|Saree|साड़ी,🩳|Shorts|निक्कर,🧦|Socks|मोज़े,🧤|Gloves|दस्ताने,🧣|Scarf|मफ़लर,🎽|Vest|बनियान'],
- ['Shoes','👟|Sports shoes|जूते,👞|Leather shoe|चमड़े का जूता,👡|Sandal|सैंडल,👢|Boot|बूट,🥿|Flat shoes|बैली जूते,👠|High heel|हील वाली सैंडल'],
+clo:[['Clothes','👕|T-shirt|टी-शर्ट,👖|Jeans|जींस,👗|Dress|फ्रॉक,👔|Shirt|कमीज़,🧥|Coat|कोट,🥻|Saree|साड़ी,🩳|Shorts|निक्कर,🧦|Socks|मोज़े,🧤|Gloves|दस्ताने,🧣|Scarf|मफ़लर,🎽|Vest|बनियान,👚|Top|टॉप'],
+ ['Shoes','👟|Sports shoes|जूते,👞|Leather shoe|चमड़े का जूता,👡|Sandal|सैंडल,👢|Boot|बूट,🥿|Flat shoes|बैली जूते,👠|High heel|हील वाली सैंडल,🩴|Chappal|चप्पल'],
  ['Wear & carry','🧢|Cap|टोपी,🎩|Hat|हैट,🩱|Swimsuit|तैराकी की पोशाक,👓|Glasses|चश्मा,🥼|Lab coat|लैब कोट,👜|Handbag|हैंडबैग,⛑️|Helmet|हेलमेट,🎒|School bag|बस्ता,⌚|Watch|कलाई घड़ी,💍|Ring|अँगूठी,📿|Beads|माला,👑|Crown|मुकुट,🎀|Ribbon|रिबन']],
-job:[['Jobs','👨‍⚕️|Doctor|डॉक्टर,👩‍🏫|Teacher|टीचर,👮|Police|पुलिस,👨‍🚒|Firefighter|दमकलकर्मी,👨‍🌾|Farmer|किसान,👨‍🍳|Cook|रसोइया,👷|Worker|मज़दूर,👨‍✈️|Pilot|पायलट,👨‍🚀|Astronaut|अंतरिक्ष यात्री,💂|Guard|पहरेदार,👨‍🔧|Mechanic|मिस्त्री,👨‍🎨|Artist|चित्रकार,👨‍🔬|Scientist|वैज्ञानिक,👨‍⚖️|Judge|जज,👨‍🎤|Singer|गायक'],
+job:[['Jobs','👨‍⚕️|Doctor|डॉक्टर,👩‍🏫|Teacher|टीचर,👮|Police|पुलिस,👨‍🚒|Firefighter|दमकलकर्मी,👨‍🌾|Farmer|किसान,👨‍🍳|Cook|रसोइया,👷|Worker|मज़दूर,👨‍✈️|Pilot|पायलट,👨‍🚀|Astronaut|अंतरिक्ष यात्री,💂|Guard|पहरेदार,👨‍🔧|Mechanic|मिस्त्री,👨‍🎨|Artist|चित्रकार,👨‍🔬|Scientist|वैज्ञानिक,👨‍⚖️|Judge|जज,👨‍🎤|Singer|गायक,🧑‍💻|Engineer|इंजीनियर,🕵️|Detective|जासूस,🧙|Magician|जादूगर'],
  ['People','👶|Baby|बच्चा,👦|Boy|लड़का,👧|Girl|लड़की,👨|Man|आदमी,👩|Woman|महिला,👴|Grandfather|दादा जी,👵|Grandmother|दादी जी,👪|Family|परिवार,🤴|Prince|राजकुमार,👸|Princess|राजकुमारी,🤡|Clown|जोकर,💃|Dancer|नर्तकी,🦸|Superhero|सुपरहीरो,🎅|Santa|सांता,👼|Angel|फ़रिश्ता']],
-nat:[['Sky & space','☀️|Sun|सूरज,🌙|Moon|चाँद,⭐|Star|तारा,☁️|Cloud|बादल,🌈|Rainbow|इंद्रधनुष,🌍|Earth|धरती,🪐|Saturn|शनि,☄️|Comet|धूमकेतु,🌌|Milky Way|आकाशगंगा,🔭|Telescope|दूरबीन,🌃|Night|रात,🚀|Rocket|रॉकेट'],
- ['Weather','🌧️|Rain|बारिश,🌂|Closed umbrella|बंद छतरी,❄️|Snow|बर्फ़,⛄|Snowman|स्नोमैन,🌪️|Tornado|बवंडर,💨|Wind|हवा,🌫️|Fog|कोहरा,⚡|Lightning|बिजली,🌡️|Thermometer|थर्मामीटर'],
- ['Land & water','🌊|Wave|लहर,💧|Water drop|पानी की बूँद,🔥|Fire|आग,⛰️|Mountain|पहाड़,🏞️|River|नदी,🌋|Volcano|ज्वालामुखी,🏖️|Beach|समुद्र तट,🏝️|Island|द्वीप,🏜️|Desert|रेगिस्तान,🏕️|Tent|तंबू']]
+nat:[['Sky & space','☀️|Sun|सूरज,🌙|Moon|चाँद,⭐|Star|तारा,☁️|Cloud|बादल,🌈|Rainbow|इंद्रधनुष,🌍|Earth|धरती,🪐|Saturn|शनि,☄️|Comet|धूमकेतु,🌌|Milky Way|आकाशगंगा,🔭|Telescope|दूरबीन,🌃|Night|रात,🚀|Rocket|रॉकेट,🌅|Sunrise|सूर्योदय'],
+ ['Weather','🌧️|Rain|बारिश,⛈️|Storm|तूफ़ान,❄️|Snow|बर्फ़,⛄|Snowman|स्नोमैन,🌪️|Tornado|बवंडर,💨|Wind|हवा,🌫️|Fog|कोहरा,⚡|Lightning|बिजली,🌡️|Thermometer|थर्मामीटर'],
+ ['Land & water','🌊|Wave|लहर,💧|Water drop|पानी की बूँद,🔥|Fire|आग,⛰️|Mountain|पहाड़,🏞️|River|नदी,🌋|Volcano|ज्वालामुखी,🏖️|Beach|समुद्र तट,🏝️|Island|द्वीप,🏜️|Desert|रेगिस्तान,🏕️|Tent|तंबू,🏔️|Snowy mountain|बर्फ़ीला पहाड़,🪨|Rock|चट्टान']],
+ani:[['Farm & pets','🐶|Dog|कुत्ता,🐱|Cat|बिल्ली,🐄|Cow|गाय,🐃|Buffalo|भैंस,🐂|Ox|बैल,🐐|Goat|बकरी,🐑|Sheep|भेड़,🐴|Horse|घोड़ा,🫏|Donkey|गधा,🐷|Pig|सुअर,🐔|Hen|मुर्गी,🐰|Rabbit|खरगोश,🐭|Mouse|चूहा,🐫|Camel|ऊँट'],
+ ['Wild','🦁|Lion|शेर,🐯|Tiger|बाघ,🐆|Leopard|तेंदुआ,🐘|Elephant|हाथी,🐒|Monkey|बंदर,🦍|Gorilla|गोरिल्ला,🦒|Giraffe|जिराफ़,🦓|Zebra|ज़ेबरा,🐻|Bear|भालू,🐼|Panda|पांडा,🦌|Deer|हिरण,🐺|Wolf|भेड़िया,🦊|Fox|लोमड़ी,🦏|Rhino|गैंडा,🦛|Hippo|दरियाई घोड़ा,🦘|Kangaroo|कंगारू,🐿️|Squirrel|गिलहरी,🐊|Crocodile|मगरमच्छ'],
+ ['Birds, water & bugs','🦜|Parrot|तोता,🦆|Duck|बतख,🦉|Owl|उल्लू,🕊️|Pigeon|कबूतर,🦚|Peacock|मोर,🐟|Fish|मछली,🐬|Dolphin|डॉल्फ़िन,🐳|Whale|व्हेल,🦈|Shark|शार्क,🐢|Turtle|कछुआ,🐸|Frog|मेंढक,🐍|Snake|साँप,🦋|Butterfly|तितली,🐝|Bee|मधुमक्खी,🐜|Ant|चींटी']],
+shp:[['Basic shapes',SHP([['<circle cx="50" cy="50" r="42"/>','Circle','गोला'],['<rect x="10" y="10" width="80" height="80" rx="5"/>','Square','वर्ग'],['<path d="M50 8 94 88H6z"/>','Triangle','त्रिभुज'],['<rect x="4" y="24" width="92" height="52" rx="5"/>','Rectangle','आयत'],['<path d="M50 6l12.9 26.2 28.9 4.2-20.9 20.4 4.9 28.8L50 72l-25.8 13.6 4.9-28.8L8.2 36.4l28.9-4.2z"/>','Star','तारा'],['<path d="M50 88S8 62 8 34a21 21 0 0 1 42-6 21 21 0 0 1 42 6c0 28-42 54-42 54z"/>','Heart','दिल'],['<ellipse cx="50" cy="50" rx="44" ry="30"/>','Oval','अंडाकार']],0)],
+ ['More shapes',SHP([['<path d="M50 4 92 50 50 96 8 50z"/>','Diamond','डायमंड'],['<path d="M50 6 94 38 77 90H23L6 38z"/>','Pentagon','पंचभुज'],['<path d="M27 10h46l23 40-23 40H27L4 50z"/>','Hexagon','षट्भुज'],['<path d="M62 6a44 44 0 1 0 32 72A36 36 0 1 1 62 6z"/>','Crescent','अर्धचंद्र'],['<path d="M6 70a44 44 0 0 1 88 0z"/>','Semicircle','अर्धवृत्त'],['<path d="M6 38h50V16l38 34-38 34V62H6z"/>','Arrow','तीर'],['<path d="M38 8h24v30h30v24H62v30H38V62H8V38h30z"/>','Plus','प्लस']],7)]],
+frv:[['Fruits','🍎|Apple|सेब,🍏|Green apple|हरा सेब,🍌|Banana|केला,🥭|Mango|आम,🍇|Grapes|अंगूर,🍊|Orange|संतरा,🍉|Watermelon|तरबूज़,🍍|Pineapple|अनानास,🍐|Pear|नाशपाती,🍑|Peach|आड़ू,🍒|Cherry|चेरी,🍓|Strawberry|स्ट्रॉबेरी,🥝|Kiwi|कीवी,🫐|Blueberry|ब्लूबेरी,🍋|Lemon|नींबू,🥥|Coconut|नारियल,🍈|Melon|खरबूज़ा,🥑|Avocado|एवोकाडो'],
+ ['Vegetables','🥕|Carrot|गाजर,🍅|Tomato|टमाटर,🥔|Potato|आलू,🧅|Onion|प्याज़,🧄|Garlic|लहसुन,🫚|Ginger|अदरक,🌶️|Chilli|मिर्च,🫑|Capsicum|शिमला मिर्च,🥦|Broccoli|ब्रोकली,🥬|Spinach|पालक,🥒|Cucumber|खीरा,🍆|Brinjal|बैंगन,🌽|Corn|भुट्टा,🎃|Pumpkin|कद्दू,🫛|Peas|मटर,🍄|Mushroom|मशरूम,🍠|Sweet potato|शकरकंद,🥜|Peanut|मूँगफली']],
+veh:[['On the road','🚗|Car|कार,🚕|Taxi|टैक्सी,🚌|Bus|बस,🚑|Ambulance|एम्बुलेंस,🚒|Fire engine|दमकल,🚓|Police car|पुलिस की गाड़ी,🚚|Truck|ट्रक,🚜|Tractor|ट्रैक्टर,🏍️|Motorbike|मोटरसाइकिल,🛵|Scooter|स्कूटर,🚲|Cycle|साइकिल,🛺|Auto|ऑटो,🚐|Van|वैन,🏎️|Race car|रेसिंग कार,🛻|Pickup truck|पिकअप'],
+ ['Rail & sky','🚆|Train|रेलगाड़ी,🚂|Steam engine|भाप इंजन,🚇|Metro|मेट्रो,🚡|Cable car|रोपवे,✈️|Aeroplane|हवाई जहाज़,🚁|Helicopter|हेलिकॉप्टर,🚀|Rocket|रॉकेट,🛸|UFO|उड़न तश्तरी,🪂|Parachute|पैराशूट'],
+ ['On water','🚢|Ship|जहाज़,⛵|Sailboat|नाव,🚤|Speedboat|स्पीडबोट,🛶|Canoe|डोंगी,⚓|Anchor|लंगर']],
+sch:[['School things','🏫|School|स्कूल,📚|Books|किताबें,📓|Notebook|कॉपी,✏️|Pencil|पेंसिल,🖊️|Pen|पेन,🖍️|Crayon|क्रेयॉन,🖌️|Paintbrush|ब्रश,📏|Ruler|स्केल,✂️|Scissors|कैंची,📎|Clip|क्लिप,🎒|School bag|बस्ता,🍱|Lunch box|टिफ़िन,📝|Homework|होमवर्क'],
+ ['In the class','🧮|Abacus|गिनतारा,🌍|Globe|ग्लोब,🗺️|Map|नक्शा,🔔|Bell|घंटी,🚌|School bus|स्कूल बस,🧑‍🏫|Teacher|टीचर,💻|Computer|कंप्यूटर,🏆|Trophy|ट्रॉफ़ी,🥇|Medal|पदक']],
+bod:[['Face','👀|Eyes|आँखें,👂|Ear|कान,👃|Nose|नाक,👄|Lips|होंठ,👅|Tongue|जीभ,🦷|Tooth|दाँत,🧔|Beard|दाढ़ी'],
+ ['Body','✋|Hand|हाथ,👍|Thumb|अँगूठा,☝️|Finger|उँगली,💪|Arm|बाँह,🦵|Leg|टाँग,🦶|Foot|पैर,💅|Nails|नाखून'],
+ ['Inside me','🧠|Brain|दिमाग़,🫀|Heart|दिल,🫁|Lungs|फेफड़े,🦴|Bone|हड्डी']],
+fel:[['Feelings','😀|Happy|खुश,😢|Sad|उदास,😠|Angry|गुस्सा,😨|Scared|डर,😲|Surprised|हैरान,😴|Sleepy|नींद,🥱|Tired|थका हुआ,🤒|Sick|बीमार,😋|Yummy|स्वादिष्ट,😂|Laughing|हँसना,😭|Crying|रोना,🤔|Thinking|सोचना,😍|Love|प्यार,😎|Cool|कूल,🥶|Cold|ठंड,🥵|Hot|गर्मी,🤫|Quiet|चुप']],
+act:[['Moving','🏃|Run|दौड़ना,🚶|Walk|चलना,💃|Dance|नाचना,🏊|Swim|तैरना,🧗|Climb|चढ़ना,🚴|Ride a cycle|साइकिल चलाना,🧘|Yoga|योग,🏋️|Lift|उठाना'],
+ ['Every day','🛌|Sleep|सोना,🍽️|Eat|खाना,🥤|Drink|पीना,🛁|Bath|नहाना,🪥|Brush teeth|ब्रश करना,🧼|Wash hands|हाथ धोना,🧹|Sweep|झाड़ू लगाना,📞|Call|फ़ोन करना'],
+ ['Fun & school','📖|Read|पढ़ना,✍️|Write|लिखना,🎨|Draw|चित्र बनाना,🎤|Sing|गाना,👏|Clap|ताली बजाना,👋|Wave|हाथ हिलाना,🙏|Namaste|नमस्ते,🤗|Hug|गले लगना']],
+ply:[['Music','🎸|Guitar|गिटार,🥁|Drum|ड्रम,🪘|Dholak|ढोलक,🎹|Piano|पियानो,🎺|Trumpet|तुरही,🎷|Saxophone|सैक्सोफ़ोन,🎻|Violin|वायलिन,🪈|Flute|बाँसुरी,🪗|Harmonium|हारमोनियम,🔔|Bell|घंटी,🎤|Microphone|माइक,🎧|Headphones|हेडफ़ोन'],
+ ['Toys','🎈|Balloon|गुब्बारा,🧸|Teddy|टेडी,🪀|Yo-yo|यो-यो,🪁|Kite|पतंग,🎲|Dice|पासा,🧩|Puzzle|पहेली,🛝|Slide|फिसलपट्टी,🎠|Merry-go-round|झूला,🛹|Skateboard|स्केटबोर्ड,🤖|Robot|रोबोट,🪆|Doll|गुड़िया,🎪|Circus|सर्कस'],
+ ['Sports','🏏|Cricket|क्रिकेट,⚽|Football|फ़ुटबॉल,🏀|Basketball|बास्केटबॉल,🏸|Badminton|बैडमिंटन,🏓|Table tennis|टेबल टेनिस,🎾|Tennis|टेनिस,🏐|Volleyball|वॉलीबॉल,🏑|Hockey|हॉकी,♟️|Chess|शतरंज']],
+ind:[['India','🇮🇳|Indian flag|तिरंगा,🦚|Peacock|मोर,🐯|Tiger|बाघ,🪷|Lotus|कमल,🥭|Mango|आम,🛕|Temple|मंदिर,🕌|Mosque|मस्जिद,⛪|Church|चर्च,🌾|Harvest|फ़सल,🥁|Dhol|ढोल'],
+ ['Festivals','🪔|Diya|दीया,🎆|Fireworks|आतिशबाज़ी,🎇|Sparkler|फुलझड़ी,🪁|Kite|पतंग,🎨|Holi colours|होली के रंग,🍬|Sweets|मिठाई,🎁|Gift|उपहार,🎂|Birthday cake|जन्मदिन का केक,🎉|Party|पार्टी,🎊|Confetti|रंगीन कागज़']]
 };
 Object.keys(NEW).forEach(function(k){var m=mk(NEW[k]);D[k]=m.d;SETS[k]=m.r});
+KEYS=KEYS.filter(function(k){return D[k]&&D[k].length});
 
 /* ---------- ranges, menu, settings tables ---------- */
-var TABS=[['abc','ABC','English'],['hin','अ आ','Hindi'],['num','123','Numbers'],['col','🎨','Colors'],['ani','🐾','Animals'],['bir','🐦','Birds & Bugs'],['thg','🧸','Things'],['hom','🏠','Home Things'],['flw','🌸','Flowers & Plants'],['fod','🍕','Food & Sweets'],['clo','👕','Clothes'],['job','👩‍🏫','Jobs & People'],['nat','🌈','Nature & Sky'],['set','⚙️','Settings']];
-var GRP=[['🔤 Letters & numbers',['abc','hin','num','col']],['🐾 Words & pictures',['ani','bir','thg','hom','flw']],['📚 Vocabulary',['fod','clo','job','nat']]];
-var GC={abc:'#E53935',hin:'#FB8C00',num:'#1E88E5',col:'#8E24AA',ani:'#43A047',bir:'#00ACC1',thg:'#F06292',hom:'#8D6E63',flw:'#EC407A',fod:'#FF7043',clo:'#5C6BC0',job:'#26A69A',nat:'#42A5F5'};
-var ROWS=[['English ABC','abc'],['Hindi अ आ','hin'],['Numbers','num'],['Colors','col'],['Animals','ani'],['Birds & Bugs','bir'],['Things & words','thg'],['Home things','hom'],['Flowers & Plants','flw'],['Food & Sweets','fod'],['Clothes & Shoes','clo'],['Jobs & People','job'],['Nature & Sky','nat']].map(function(r){return[r[0],r[1],SETS[r[1]].map(function(s,i){return[s[0],i]})]}).concat([['Letter case (English ABC)','cs',[['A B C',0],['a b c',1],['A → a match',2]]],['Hindi names (everything except letters)','hi',[['On',1],['Off',0]]],['Choices (Auto grows with accuracy)','ch',[['Auto',0],[2,2],[3,3],[4,4]]],['Sound','snd',[['On',1],['Off',0]]],['Voice speed','rate',[['Slow',0],['Normal',1],['Fast',2]]],['Play time limit','min',[['Off',0],['10 min',10],['15 min',15],['20 min',20]]]]);
+var TABS=[['abc','ABC','English'],['hin','अ आ','Hindi'],['num','123','Numbers'],['col','🎨','Colors'],['shp','🔷','Shapes'],['ani','🐾','Animals'],['bir','🐦','Birds & Bugs'],['flw','🌸','Flowers & Plants'],['nat','🌈','Nature & Sky'],['thg','🧸','Things'],['frv','🥕','Fruits & Veggies'],['veh','🚗','Vehicles'],['hom','🏠','Home Things'],['fod','🍕','Food & Sweets'],['clo','👕','Clothes'],['sch','🎒','School'],['bod','🖐️','My Body'],['fel','😊','Feelings'],['act','🏃','Action Words'],['job','👩‍🏫','Jobs & People'],['ply','🎸','Music & Play'],['ind','🪔','India & Festivals'],['set','⚙️','Settings']];
+var GRP=[['🔤 Letters & numbers',['abc','hin','num','col','shp']],['🌳 Animals & nature',['ani','bir','flw','nat']],['🏠 Everyday words',['thg','frv','veh','hom','fod','clo','sch']],['🧒 Me & my world',['bod','fel','act','job','ply','ind']]];
+var GC={abc:'#E53935',hin:'#FB8C00',num:'#1E88E5',col:'#8E24AA',shp:'#7E57C2',ani:'#43A047',bir:'#00ACC1',flw:'#EC407A',nat:'#42A5F5',thg:'#F06292',frv:'#7CB342',veh:'#039BE5',hom:'#8D6E63',fod:'#FF7043',clo:'#5C6BC0',sch:'#FFA000',bod:'#D81B60',fel:'#F9A825',act:'#00897B',job:'#26A69A',ply:'#6D4C41',ind:'#FF6F00'};
 
 /* clean up old / bad saved settings so nothing crashes */
 KEYS.forEach(function(k){var v=S.cfg[k];if(!(v>=0&&v<SETS[k].length))S.cfg[k]=0});
@@ -300,6 +426,8 @@ if([0,10,15,20].indexOf(S.cfg.min)<0)S.cfg.min=10;
 if([0,1,2].indexOf(S.cfg.rate)<0)S.cfg.rate=1;
 if(typeof S.cfg.ve!='string')S.cfg.ve='';if(typeof S.cfg.vh!='string')S.cfg.vh='';
 if(!SETS[S.tab])S.tab='abc';
+if(!S.cfg.hide||typeof S.cfg.hide!='object')S.cfg.hide={};if([10,20,30].indexOf(S.cfg.goal)<0)S.cfg.goal=20;
+if(typeof S.cfg.name!='string')S.cfg.name='';S.cfg.name=S.cfg.name.slice(0,20);if(!S.td||typeof S.td.n!='number')S.td={d:'',n:0};
 Object.keys(S.ad).forEach(function(k){var a=S.ad[k];if(!a||!(a.l>=2&&a.l<=4))S.ad[k]={l:2,s:0,m:0}});
 /* sticker collection: a new one every 10 correct answers */
 var STK='🦁 🐯 🐘 🦒 🦓 🐼 🐨 🦊 🐸 🐙 🦋 🐢 🐬 🦄 🐳 🦜 🦉 🐧 🦩 🐞 🌈 🚀 🛸 🎈 🎨 🏆 🎁 🪁 ⛵ 🚂 🚒 🏎️ 🛩️ 🍦 🍓 🍉 🍩 🧁 🌻 🌴 🌋 🏰 🎡 🎠 🎪 🎸 🥁 🎺 🔔 💎 👑 🧸 🪀 ⚽ 🏀 🎯 🧩 🎩 🌟 🦖'.split(' ');
@@ -334,12 +462,43 @@ function touchDay(){var t=new Date(),a=ymd(t);if(S.day==a)return;var y=new Date(
 function curStreak(){var t=new Date(),y=new Date(t.getFullYear(),t.getMonth(),t.getDate()-1);return (S.day==ymd(t)||S.day==ymd(y))?S.streak:0}
 
 /* ---------- screens ---------- */
-function frame(tab,inner){R('<div class="hd">'+(tab=='home'?'':'<button class="ib" onclick="home()" aria-label="Home">🏠</button>')+'<span class="app">🐻 Jungle Fun</span><span class="sc">⭐ '+S.stars+'</span><button class="ib" id="mu" onclick="snd()" aria-label="Sound on or off">'+(S.cfg.snd?'🔊':'🔇')+'</button></div><div class="main">'+inner+'</div>')}
-function acc(k){var p=prog(k),r=S.sc[k],s='';if(p[0])s+='✅ '+p[0]+'/'+p[1];if(r&&r.t){var q=Math.round(r.f/r.t*100);s+=(s?'<br>':'')+(q>=80?'⭐⭐⭐':q>=50?'⭐⭐':'⭐')+' '+q+'%'}return s}
-function home(){mode='home';hush();recStop();Q=null;CF='';
-  var g=GRP.map(function(x){return '<p class="gh">'+x[0]+'</p><div class="menu">'+x[1].map(function(k){var t=TABS.filter(function(z){return z[0]==k})[0];return '<button class="game" style="--gc:'+GC[k]+'" onclick="go(\''+k+'\')"><b>'+t[1]+'</b>'+t[2]+'<span class="acc">'+acc(k)+'</span></button>'}).join('')+'</div>'}).join('');
-  var st=curStreak();
-  frame('home','<h2 style="text-align:center">What do you want to play?</h2>'+(st?'<p class="note" style="text-align:center">🔥 '+st+' day'+(st>1?'s':'')+' in a row!</p>':'')+'<button class="game" style="--gc:#FFB627" onclick="album()"><b>🏆</b>My stickers<span class="acc">'+S.stk+' / '+STK.length+'</span></button>'+g+'<button class="ghost" onclick="openSet()">⚙️ Parent settings</button>')}
+function frame(tb,inner){R('<div class="hd">'+(tb=='home'?'':'<button class="ib" onclick="home()" aria-label="Home">🏠</button>')+'<span class="app">🐻 Jungle Fun</span><span class="sc">⭐ '+S.stars+'</span><button class="ib" id="mu" onclick="snd()" aria-label="Sound on or off">'+(S.cfg.snd?'🔊':'🔇')+'</button></div><div class="main">'+inner+'</div>')}
+function tab(k){return TABS.filter(function(z){return z[0]==k})[0]}
+function vis(k){return !S.cfg.hide[k]}
+function today(){if(S.td.d!=TODAY)S.td={d:TODAY,n:0};return S.td.n}
+function hiName(){return S.cfg.name?'Hi '+esc(S.cfg.name)+'!':'Hi there!'}
+/* small picture of an item, for previews and lists */
+function ico(it){return it.col?'<i class="dot" style="background:'+it.col+'"></i>':(it.em||it.big)}
+/* Bholu the bear: drawn, so it looks the same on every phone */
+var BEAR='<svg class="bear" viewBox="0 0 200 210" aria-hidden="true"><g class="arm"><ellipse cx="164" cy="122" rx="17" ry="32" fill="#8B5A3C" transform="rotate(20 164 122)"/><circle cx="174" cy="94" r="16" fill="#8B5A3C"/><circle cx="174" cy="94" r="8" fill="#E3B98B"/></g>'+
+ '<ellipse cx="100" cy="162" rx="54" ry="44" fill="#8B5A3C"/><ellipse cx="100" cy="170" rx="31" ry="28" fill="#E3B98B"/><ellipse cx="46" cy="164" rx="14" ry="26" fill="#7A4E33" transform="rotate(16 46 164)"/>'+
+ '<circle cx="54" cy="42" r="20" fill="#8B5A3C"/><circle cx="54" cy="42" r="10" fill="#E3B98B"/><circle cx="146" cy="42" r="20" fill="#8B5A3C"/><circle cx="146" cy="42" r="10" fill="#E3B98B"/>'+
+ '<circle cx="100" cy="82" r="54" fill="#A0683F"/><ellipse cx="100" cy="106" rx="27" ry="20" fill="#EBC79E"/><ellipse cx="100" cy="95" rx="10" ry="7" fill="#3B2416"/>'+
+ '<g class="eyes"><circle cx="78" cy="75" r="7" fill="#2A1A10"/><circle cx="122" cy="75" r="7" fill="#2A1A10"/><circle cx="80.5" cy="72.5" r="2.4" fill="#fff"/><circle cx="124.5" cy="72.5" r="2.4" fill="#fff"/></g>'+
+ '<path d="M88 109q12 12 24 0" fill="none" stroke="#3B2416" stroke-width="4" stroke-linecap="round"/><circle cx="66" cy="99" r="8" fill="#FF8A80" opacity=".55"/><circle cx="134" cy="99" r="8" fill="#FF8A80" opacity=".55"/></svg>';
+function rays(){var s='';for(var a=0;a<360;a+=45){var r=a*Math.PI/180;s+='<line x1="'+(50+Math.cos(r)*33).toFixed(1)+'" y1="'+(50+Math.sin(r)*33).toFixed(1)+'" x2="'+(50+Math.cos(r)*45).toFixed(1)+'" y2="'+(50+Math.sin(r)*45).toFixed(1)+'"/>'}return s}
+var SUN='<svg class="sun" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="24" style="fill:var(--sun)"/><g style="stroke:var(--sun)" stroke-width="6" stroke-linecap="round">'+rays()+'</g></svg>';
+var CLOUD='<svg viewBox="0 0 80 40" aria-hidden="true"><g fill="#fff"><ellipse cx="34" cy="26" rx="30" ry="13"/><ellipse cx="50" cy="18" rx="18" ry="14"/><ellipse cx="22" cy="20" rx="13" ry="10"/></g></svg>';
+var SCENE='<svg class="bg" viewBox="0 0 360 240" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--sky1)"/><stop offset="1" style="stop-color:var(--sky2)"/></linearGradient></defs>'+
+ '<rect width="360" height="240" fill="url(#sk)"/><path d="M0 158Q70 112 150 150T290 140T360 128V240H0z" style="fill:var(--h1)"/><path d="M0 192Q90 150 180 186T360 176V240H0z" style="fill:var(--h2)"/><path d="M0 224Q180 202 360 224V240H0z" style="fill:var(--h3)"/></svg>'+
+ SUN+'<div class="cl" style="top:9%">'+CLOUD+'</div><div class="cl c2" style="top:24%">'+CLOUD+'</div>'+
+ '<span class="e" style="left:1%;bottom:18%;--s:4.4rem">🌴</span><span class="e" style="right:0;bottom:22%;--s:4rem">🌳</span>'+
+ '<span class="e pk" style="left:15%;bottom:33%;--s:2.7rem;animation-delay:.2s">🦒</span><span class="e pk" style="right:14%;bottom:30%;--s:2.6rem;animation-delay:1.1s">🐘</span>'+
+ '<span class="e pk" style="left:26%;bottom:9%;--s:2.2rem;animation-delay:.7s">🦁</span><span class="e pk" style="right:25%;bottom:8%;--s:2.1rem;animation-delay:1.6s">🐒</span>'+
+ '<span class="e fly" style="top:30%;--s:1.8rem">🦜</span><span class="e flt" style="top:44%;left:58%;--s:1.3rem">🦋</span><div class="hero">'+BEAR+'</div>';
+function ttl(s){var c=['#E53935','#FB8C00','#F9A825','#43A047','#1E88E5','#8E24AA'],j=0;return s.split('').map(function(ch,i){return ch==' '?' ':'<span style="color:'+c[j++%c.length]+';animation-delay:'+(i*.09).toFixed(2)+'s">'+ch+'</span>'}).join('')}
+function words(){var n=0;KEYS.forEach(function(k){if(k!='abc'&&k!='hin'&&k!='num')n+=D[k].length});return Math.floor(n/50)*50}
+function splash(){mode='splash';var st=curStreak();
+  R('<div class="spl"><div class="scene">'+SCENE+'</div><h1 class="ttl">'+ttl('Jungle Fun')+'</h1><p class="sub">'+(S.cfg.name?hiName()+' ':'')+'खेलो, सीखो, मज़े करो!</p><button class="big play" onclick="begin()">▶ Play</button><p class="note">'+(S.stars?'⭐ '+S.stars+' · 🏆 '+S.stk+' stickers'+(st?' · 🔥 '+st+' day'+(st>1?'s':''):''):'ABC · अ आ · 123 · shapes · '+words()+'+ words')+'</p></div>')}
+function card(k){var t=tab(k),p=prog(k),r=S.sc[k],q=r&&r.t?Math.round(r.f/r.t*100):-1;
+  return '<button class="gc" style="--gc:'+GC[k]+'" onclick="chooser(\''+k+'\')"><span class="gi">'+t[1]+'</span><span class="gn">'+t[2]+'</span><span class="gb"><i style="width:'+Math.round(p[0]/p[1]*100)+'%"></i></span><span class="gs">'+p[0]+' / '+p[1]+(q>=0?' · '+(q>=80?'⭐⭐⭐':q>=50?'⭐⭐':'⭐'):'')+'</span></button>'}
+function home(){mode='home';hush();recStop();Q=null;LQ=null;CF='';
+  var g=GRP.map(function(x){var ks=x[1].filter(vis);return ks.length?'<p class="gh">'+x[0]+'</p><div class="grid">'+ks.map(card).join('')+'</div>':''}).join('');
+  var st=curStreak(),n=today(),gl=S.cfg.goal;
+  frame('home','<div class="hello">'+BEAR+'<div class="ht"><b>'+hiName()+'</b><span>What do you want to play?</span></div>'+(st?'<span class="fire">🔥 '+st+'</span>':'')+'</div>'+
+   '<div class="goal"><span>🎯 Today</span><span class="gb"><i style="width:'+Math.min(100,Math.round(n/gl*100))+'%"></i></span><b>'+(n>=gl?'✅':'⭐')+' '+Math.min(n,gl)+'/'+gl+'</b></div>'+
+   '<button class="stkc" onclick="album()"><span>🏆</span><b>My stickers</b><span class="acc">'+S.stk+' / '+STK.length+'</span></button>'+
+   (g||'<p class="note" style="text-align:center">All games are hidden. Parents: turn them on in settings.</p>')+'<button class="ghost" onclick="openSet()">⚙️ Parent settings</button>')}
 function snd(){S.cfg.snd=S.cfg.snd?0:1;save();if(!S.cfg.snd)hush();var m=$('#mu');if(m)m.textContent=S.cfg.snd?'🔊':'🔇'}
 function hiLine(it){return S.cfg.hi&&it.hi?'<div class="note">'+it.hi+'</div>':''}
 function stage(k,it){
@@ -349,13 +508,43 @@ function stage(k,it){
   return '<div class="bigl">'+it.big+'</div>'+(it.pic?'<div class="pic">'+it.pic+'</div>':'')+(it.word?'<div>'+it.word+'</div>':'');
 }
 function tl(it,i){var lab=(it.em||it.col)?it.word:(it.tb||it.big);return '<button class="tile'+(it.col?' cl':'')+'" id="t'+i+'"'+(it.col?' style="background:'+it.col+'"':'')+' aria-label="'+esc(lab)+'" onclick="pick('+i+')">'+(it.col?'<small>'+it.word+'</small>':(it.tb||it.big))+'</button>'}
-function splash(){mode='splash';R('<div class="main mid"><div class="bholu">🐻</div><h2 style="font-size:2rem">Jungle Fun</h2><p class="note">Letters, अ आ, numbers, colors, animals, birds, flowers, food and more</p><button class="big" onclick="begin()">▶ Play</button></div>')}
+
+/* ---------- pick a mode: Learn (flash cards) or Play (quiz) ---------- */
+function chooser(k){if(!SETS[k])k='abc';mode='pick';hush();S.tab=k;save();
+  var t=tab(k),p=prog(k),pv=sh(items(k)).slice(0,5).map(function(it){return '<span>'+ico(it)+'</span>'}).join('');
+  frame(k,'<div class="chz" style="--gc:'+GC[k]+'"><div class="chi">'+t[1]+'</div><h2>'+t[2]+'</h2><p class="note">'+esc(SETS[k][S.cfg[k]][0])+' · ✅ '+p[0]+' / '+p[1]+'</p><div class="pv">'+pv+'</div></div>'+
+   '<div class="two"><button class="mode lrn" onclick="learn(\''+k+'\')"><span>📖</span><b>Learn</b><small>सीखो</small></button><button class="mode pl" onclick="go(\''+k+'\')"><span>🎯</span><b>Play</b><small>खेलो</small></button></div>');
+  speak([['en-IN','Learn, or play?']]);
+}
+var LQ=null;
+function learn(k){mode='learn';hush();LQ={k:k,i:0,l:items(k)};lcard()}
+function lcard(){var k=LQ.k,n=LQ.l.length,i=LQ.i,it=LQ.l[i];
+  frame(k,'<div class="prog"><i style="width:'+Math.round((i+1)/n*100)+'%"></i><b>'+(i+1)+' / '+n+'</b></div><button class="stage lc" onclick="lsay()" aria-label="Hear again">'+stage(k,it)+'</button>'+
+   '<div class="lnav"><button class="key nav" onclick="lmove(-1)" aria-label="Back"'+(i?'':' disabled')+'>◀</button><button class="key nav" onclick="lsay()" aria-label="Hear again">🔊</button>'+
+   (i<n-1?'<button class="key nav go" onclick="lmove(1)" aria-label="Next">▶</button>':'<button class="key nav go" onclick="go(\''+k+'\')" aria-label="Play">🎯</button>')+'</div>'+
+   (i==n-1?'<button class="big" onclick="go(\''+k+'\')">🎯 Play now</button>':'<p class="note" style="text-align:center">👉 Swipe or tap ▶ for the next one</p>'));
+  lsay();
+}
+function lsay(){ac();if(LQ)play(yayPlan(LQ.k,LQ.l[LQ.i],1))}
+function lmove(d){if(!LQ)return;var j=LQ.i+d;if(j<0||j>=LQ.l.length)return;LQ.i=j;lcard()}
+var TX=null;
+document.addEventListener('touchstart',function(e){TX=(mode=='learn'&&e.touches.length==1)?[e.touches[0].clientX,e.touches[0].clientY]:null},{passive:true});
+document.addEventListener('touchend',function(e){if(mode!='learn'||!TX)return;var t=e.changedTouches[0],dx=t.clientX-TX[0],dy=t.clientY-TX[1];TX=null;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)lmove(dx<0?1:-1)},{passive:true});
+
+/* ---------- confetti ---------- */
+function burst(n){
+  try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return}catch(e){}
+  var b=document.createElement('div'),E=['⭐','✨','🎉','🌟','🎈','💛','💚','💙'];b.className='cf';
+  for(var i=0;i<n;i++){var s=document.createElement('span'),a=Math.random()*Math.PI*2,r=80+Math.random()*150;s.textContent=E[rnd(E.length)];
+    s.style.setProperty('--x',(Math.cos(a)*r).toFixed(0)+'px');s.style.setProperty('--y',(Math.sin(a)*r-50).toFixed(0)+'px');s.style.setProperty('--r',(rnd(720)-360)+'deg');s.style.animationDelay=(Math.random()*.15).toFixed(2)+'s';b.appendChild(s)}
+  document.body.appendChild(b);setTimeout(function(){if(b.parentNode)b.parentNode.removeChild(b)},1600);
+}
 
 /* Android back button stays inside the app (set up on first tap, as browsers require) */
 var guarded=0;
-function guard(){if(guarded)return;guarded=1;try{history.pushState(null,'');window.addEventListener('popstate',function(){history.pushState(null,'');if(mode=='gate'&&GT)GT.back();else if(mode=='voice')settings();else if(mode=='play'||mode=='set'||mode=='album')home()})}catch(e){}}
-function begin(){ac();guard();home()}
-function go(k){if(!SETS[k])k='abc';S.tab=k;save();Q={k:k,n:0,rq:[],re:null,stk:0};ask()}
+function guard(){if(guarded)return;guarded=1;try{history.pushState(null,'');window.addEventListener('popstate',function(){history.pushState(null,'');if(mode=='gate'&&GT)GT.back();else if(mode=='voice')settings();else if(mode=='play'||mode=='set'||mode=='album'||mode=='pick'||mode=='learn')home()})}catch(e){}}
+function begin(){ac();guard();home();speak([['en-IN',(S.cfg.name?'Hi '+S.cfg.name+'! ':'Hi! ')+'What do you want to play?']])}
+function go(k){if(!SETS[k])k='abc';S.tab=k;save();LQ=null;Q={k:k,n:0,rq:[],re:null,stk:0,gl:0};ask()}
 
 function ask(){
   mode='play';
@@ -366,7 +555,7 @@ function ask(){
   o.push(it);o=sh(o);Q.cur=it;Q.o=o;Q.w=0;Q.c=0;Q.lock=0;
   var tot=all.length,dn=tot-pool(k).length,p,hear='<button class="sp" onclick="rep()" aria-label="Hear again">🔊 Hear</button>';
   if(k=='num'){var bt='';for(var j=0;j<it.cnt;j++)bt+='<button class="em'+(it.cnt>10?' sm':'')+'" id="e'+j+'" onclick="cnt('+j+')">'+it.th+'</button>';p='<div class="pics">'+bt+'</div><div class="note">👆 Tap to count</div>'+hear}
-  else p='<div class="pic">'+(it.pic||'🎧')+'</div>'+(it.q?'<div class="bigl">'+it.q+'</div>':'')+hear+(k=='hin'&&VO.length&&!hasHi()?'<div class="note">No Hindi voice on this phone. Parents: see Settings.</div>':'');
+  else p='<div class="pic">'+(it.pic||'❓')+'</div>'+(it.q?'<div class="bigl">'+it.q+'</div>':'')+hear+(k=='hin'&&VO.length&&!hasHi()?'<div class="note">No Hindi voice on this phone. Parents: see Settings.</div>':'');
   frame(k,'<div class="prog"><i style="width:'+Math.round(dn/tot*100)+'%"></i><b>'+dn+' / '+tot+'</b></div><div class="stage" id="stg">'+p+'</div><div class="ch c'+o.length+'">'+o.map(tl).join('')+'</div>');
   play(nm(k,it));
 }
@@ -376,7 +565,8 @@ function pick(i){
   if(!Q||Q.lock)return;ac();
   var it=Q.o[i],b=$('#t'+i),k=Q.k;if(!b||b.classList.contains('x'))return;
   if(it===Q.cur){
-    Q.lock=1;b.classList.add('ok');good();S.stars++;touchDay();
+    Q.lock=1;b.classList.add('ok');good();burst(8);S.stars++;touchDay();
+    today();S.td.n++;if(S.td.n==S.cfg.goal)Q.gl=1;     /* daily goal reached just now */
     var fst=!Q.w;
     if(Q.re){                       /* a re-asked item: not counted in accuracy; wrong again = one more retry later */
       var ri=Q.rq.indexOf(Q.re);if(ri>=0){if(fst||Q.re.t>=1)Q.rq.splice(ri,1);else{Q.re.t++;Q.re.due=Q.n+4}}
@@ -401,21 +591,28 @@ function yay(k,it,done){play(yayPlan(k,it),done)}
 function next(){
   var k=Q.k;
   if(Q.stk){Q.stk=0;sticker(next);return}
+  if(Q.gl){Q.gl=0;goalDone(next);return}
   if(!pool(k).length){
     var n=SETS[k][S.cfg[k]][0],e,t0=Date.now();
     frame(k,'<div class="stage"><div class="bholu">🎉</div><h2>You finished '+n+'!</h2><div class="pic">⭐⭐⭐</div></div>');
-    e=ep;good();S.bd[k]=(S.bd[k]||0)+1;save();
+    e=ep;good();burst(30);S.bd[k]=(S.bd[k]||0)+1;save();
     speak([k=='hin'?['hi-IN','शाबाश! सब पूरे हो गए!']:['en-IN','Amazing! You finished them all!']],function(){later(function(){resetRange(k);ask()},Math.max(600,2800-(Date.now()-t0)),e)});
     return;
   }
   ask();
 }
 
+/* ---------- daily goal ---------- */
+function goalDone(after){var e,t0=Date.now();
+  frame(Q.k,'<div class="stage"><div class="bholu">🏅</div><h2>Today’s goal done!</h2><p class="note">⭐ '+S.cfg.goal+' stars today</p></div>');
+  e=ep;good();burst(30);
+  speak([['en-IN','Wow'+(S.cfg.name?' '+S.cfg.name:'')+'! You reached today\'s goal!']],function(){later(after,Math.max(500,2600-(Date.now()-t0)),e)});
+}
 /* ---------- stickers ---------- */
 function sticker(after){
   var s=STK[S.stk],e,t0=Date.now();S.stk++;save();
   frame(Q.k,'<div class="stage"><div class="bholu">'+s+'</div><h2>New sticker!</h2><p class="note">'+S.stk+' of '+STK.length+' collected</p></div>');
-  e=ep;good();
+  e=ep;good();burst(24);
   speak([['en-IN','You got a new sticker!']],function(){later(after,Math.max(500,2600-(Date.now()-t0)),e)});
 }
 function album(){
@@ -513,28 +710,42 @@ function refreshVoice(){if(mode=='voice')renderVoice()}
 function vplay(i,slot){var v=VL[i];if(!v)return;ac();play([['c',rk(v.k,v.it,slot)]])}
 function vdel(i,slot){var v=VL[i];if(!v)return;rdel(rk(v.k,v.it,slot)).then(refreshVoice,refreshVoice)}
 function testv(p){ac();if(p=='hi')speak([['hi-IN','क से कबूतर']]);else speak([['en-IN','Hello! Find the letter A']])}
+/* ---------- compact parent settings: summary + folding sections ---------- */
+var OPEN={},CF='';
+var OPTS=[['🔠 Letter case','cs',[['ABC',0],['abc',1],['A→a',2]]],['🇮🇳 Hindi names','hi',[['On',1],['Off',0]]],['🔢 Choices','ch',[['Auto',0],['2',2],['3',3],['4',4]]],['🔊 Sound','snd',[['On',1],['Off',0]]],['🐢 Voice speed','rate',[['Slow',0],['Normal',1],['Fast',2]]],['⏱️ Play time','min',[['Off',0],['10m',10],['15m',15],['20m',20]]],['🎯 Daily goal','goal',[['10⭐',10],['20⭐',20],['30⭐',30]]]];
+function det(id,title,body,extra){return '<details class="dt" data-k="'+id+'"'+(OPEN[id]?' open':'')+' ontoggle="OPEN[this.dataset.k]=this.open?1:0"><summary><span class="st">'+title+'</span>'+(extra?'<span class="sx">'+extra+'</span>':'')+'</summary><div class="db">'+body+'</div></details>'}
+function seg(key,opts){return '<div class="seg">'+opts.map(function(o){return '<button class="'+(S.cfg[key]===o[1]?'on':'')+'" onclick="setc(\''+key+'\','+o[1]+')">'+o[0]+'</button>'}).join('')+'</div>'}
 function settings(){
   mode='set';recStop();
-  var w=(window.speechSynthesis&&VO.length&&!hasHi())?'<div class="warn">This phone has no Hindi voice, so Hindi will be shown but not spoken. Install Hindi in the phone’s text-to-speech settings (Google Text-to-Speech → Hindi).</div>':'';
-  var played=TABS.filter(function(t){return t[0]!='set'&&S.sc[t[0]]&&S.sc[t[0]].t}),solved=TABS.filter(function(t){return t[0]!='set'&&prog(t[0])[0]>0});
-  frame('set','<h2>Parent settings</h2>'+(OFF?'<p class="note">📶 Ready to play without internet.</p>':(window.isSecureContext&&/^https:$/.test(location.protocol)?'':'<p class="note">📴 Opened as a file: the game works, but voice recording needs the https link.</p>'))+'<p class="note">Saved on this phone. Solved items stay saved until the round is finished. An item answered wrongly comes back a few questions later.</p>'+w+
-   '<div class="srow"><div>✅ Solved so far (saved)</div><div class="rep">'+solved.map(function(t){var p=prog(t[0]);return '<span>'+t[2]+'</span><span>'+p[0]+' / '+p[1]+'</span>'}).join('')+'</div>'+(solved.length?'':'<p class="note">Nothing solved yet.</p>')+'</div>'+
-   '<div class="srow"><div>📊 Accuracy (right on first try)</div><div class="rep">'+played.map(function(t){var r=S.sc[t[0]];return '<span>'+t[2]+'</span><span>'+r.f+' / '+r.t+' ('+Math.round(r.f/r.t*100)+'%)</span>'}).join('')+'</div>'+(played.length?'':'<p class="note">No games played yet.</p>')+'</div>'+
-   weakBlock()+ROWS.map(function(r){return '<div class="srow"><div>'+r[0]+'</div><div class="chips">'+r[2].map(function(o){return '<button class="chip'+(S.cfg[r[1]]===o[1]?' on':'')+'" onclick="setc(\''+r[1]+'\','+o[1]+')">'+o[0]+'</button>'}).join('')+'</div></div>'}).join('')+
-   voiceRow()+vsel('en','ve','🗣️ English voice')+vsel('hi','vh','🗣️ Hindi voice')+
-   '<button class="big" onclick="home()">Done</button><button class="ghost" onclick="rst(\'dn\')">'+(CF=='dn'?'⚠️ Tap again to restart solved progress':'Restart all solved progress')+'</button><button class="ghost" onclick="rst(\'all\')">'+(CF=='all'?'⚠️ Tap again to reset stars, accuracy and practice list':'Reset stars, accuracy and practice list (stickers stay)')+'</button>');
+  var off=OFF?'📶 Ready to play without internet':(window.isSecureContext&&location.protocol=='https:'?'':'📴 Opened as a file: voice recording needs the https link');
+  var warn=(window.speechSynthesis&&VO.length&&!hasHi())?'<div class="warn">No Hindi voice on this phone, so Hindi is shown but not spoken. Phone Settings → Text-to-speech → Google → Install voice data → Hindi.</div>':'';
+  var st=curStreak(),um=Math.floor(used/60);
+  var sum='<div class="sum"><div><b>⭐ '+S.stars+'</b><small>stars</small></div><div><b>🏆 '+S.stk+'</b><small>stickers</small></div><div><b>🔥 '+st+'</b><small>day streak</small></div><div><b>⏱️ '+um+(S.cfg.min?'/'+S.cfg.min:'')+'</b><small>min today</small></div></div>';
+  var opt='<div class="orow"><span>🧒 Child’s name</span><input class="sel nmi" maxlength="20" value="'+esc(S.cfg.name)+'" placeholder="Name" onchange="setName(this.value)"></div>'+
+    OPTS.map(function(r){return '<div class="orow"><span>'+r[0]+'</span>'+seg(r[1],r[2])+'</div>'}).join('');
+  var sec=KEYS.map(function(k){var t=tab(k);return '<div class="orow"><span>'+t[1]+' '+t[2]+'</span><select class="sel" onchange="setRange(\''+k+'\',+this.value)">'+
+    SETS[k].map(function(s,i){return '<option value="'+i+'"'+(vis(k)&&S.cfg[k]===i?' selected':'')+'>'+esc(s[0])+'</option>'}).join('')+'<option value="-1"'+(vis(k)?'':' selected')+'>🚫 Hidden</option></select></div>'}).join('');
+  var rows=KEYS.filter(function(k){return prog(k)[0]>0||(S.sc[k]&&S.sc[k].t)}).map(function(k){var t=tab(k),p=prog(k),r=S.sc[k];return '<span>'+t[1]+' '+t[2]+'</span><span>'+p[0]+'/'+p[1]+'</span><span>'+(r&&r.t?Math.round(r.f/r.t*100)+'%':'–')+'</span>'}).join('');
+  var prg=(rows?'<div class="tbl"><span class="th">Game</span><span class="th">Solved</span><span class="th">1st try</span>'+rows+'</div>':'<p class="note">Nothing played yet.</p>')+weakBlock()+
+    '<p class="note">Solved words stay saved until the round is finished. A word answered wrongly comes back a few questions later.</p>';
+  var rs='<button class="ghost" onclick="rst(\'dn\')">'+(CF=='dn'?'⚠️ Tap again to restart solved progress':'↺ Restart solved progress')+'</button><button class="ghost" onclick="rst(\'all\')">'+(CF=='all'?'⚠️ Tap again to reset stars & accuracy':'↺ Reset stars, accuracy, practice list (stickers stay)')+'</button>';
+  frame('set','<h2>Parent settings</h2>'+(off?'<p class="note">'+off+'</p>':'')+warn+sum+
+    det('opt','⚙️ Game options',opt)+
+    det('sec','📚 Games & word lists',sec,KEYS.filter(vis).length+' / '+KEYS.length+' on')+
+    det('prg','📊 Progress',prg)+
+    det('voc','🎙️ Voices & recording',voiceRow()+vsel('en','ve','🗣️ English voice')+vsel('hi','vh','🗣️ Hindi voice'))+
+    det('rst','🧹 Reset',rs)+
+    '<button class="big" onclick="home()">Done</button>');
 }
-var CF='';
-function rst(w){if(CF!=w)CF=w;else{CF='';if(w=='dn')S.dn={};else{S.stars=0;S.sc={};S.wk={};S.ad={}}save()}keepScroll(settings)}
+function rst(w){if(CF!=w)CF=w;else{CF='';if(w=='dn')S.dn={};else{S.stars=0;S.sc={};S.wk={};S.ad={};S.td={d:TODAY,n:0}}save()}keepScroll(settings)}
 function keepScroll(fn){var m=$('.main'),st=m?m.scrollTop:0;fn();m=$('.main');if(m)m.scrollTop=st}
-function setc(k,v){
-  S.cfg[k]=v;if(k=='min')used=0;if(k=='snd'&&!v)hush();save();
-  var m=$('.main'),st=m?m.scrollTop:0;settings();m=$('.main');if(m)m.scrollTop=st;
-}
+function setc(k,v){S.cfg[k]=v;if(k=='min')used=0;if(k=='snd'&&!v)hush();save();keepScroll(settings)}
+function setName(v){S.cfg.name=String(v||'').replace(/\s+/g,' ').trim().slice(0,20);save()}
+function setRange(k,v){if(v<0)S.cfg.hide[k]=1;else{delete S.cfg.hide[k];S.cfg[k]=v}save();keepScroll(settings)}
 
 /* ---------- play-time limit: counts only visible play time per day; survives reload / closing the app ---------- */
 setInterval(function(){var t=ymd(new Date());if(t!=TODAY){TODAY=t;used=0}
-  if(mode=='play'&&!document.hidden&&S.cfg.min){used+=5;if(used>=S.cfg.min*60)sleep();else if(used%30==0)save()}},5000);
+  if((mode=='play'||mode=='learn'||mode=='pick')&&!document.hidden&&S.cfg.min){used+=5;if(used>=S.cfg.min*60)sleep();else if(used%30==0)save()}},5000);
 function sleep(){S.sleep=1;save();mode='sleep';hush();R('<div class="main mid"><div class="bholu">😴</div><h2>Bear is sleeping</h2><p>See you later! 🌙</p><button class="ghost" onclick="gate(wake,sleep)">Parents</button></div>')}
 function wake(){S.sleep=0;used=0;save();ac();guard();home()}
 document.addEventListener('visibilitychange',function(){if(document.hidden){hush();save()}});
