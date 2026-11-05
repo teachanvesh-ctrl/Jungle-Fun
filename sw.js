@@ -1,6 +1,6 @@
 /* Jungle Fun offline worker: keeps the game on the phone so it opens without internet.
    Change the version below whenever index.html is updated, so phones pick up the new copy. */
-const C = 'jungle-fun-v6';
+const C = 'jungle-fun-v7';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
